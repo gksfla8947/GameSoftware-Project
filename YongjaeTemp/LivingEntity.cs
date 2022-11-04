@@ -5,24 +5,24 @@ using System;
 
 public class LivingEntity : MonoBehaviour
 {
-    public float startingHealth = 100f; //½ÃÀÛ Ã¼·Â
-    public float health { get; protected set; } //ÇöÀç Ã¼·Â
-    public bool dead { get; protected set; } //»ç¸Á»óÅÂ
-    public event Action onDeath; //»ç¸Á ½Ã ¹ßµ¿ÇÒ ÀÌº¥Æ®
+    public float startingHealth = 100f; //ì‹œì‘ ì²´ë ¥
+    public float health { get; protected set; } //í˜„ì¬ ì²´ë ¥
+    public bool dead { get; protected set; } //ì‚¬ë§ìƒíƒœ
+    public event Action onDeath; //ì‚¬ë§ ì‹œ ë°œë™í•  ì´ë²¤íŠ¸
 
-    public float tempHp;
+    public float tempHp; //ìœ ë‹ˆí‹° ì°½ì—ì„œ í˜„ì¬ ì²´ë ¥ ë³¼ë ¤ê³  ì„ì‹œë¡œ ë„£ì€ê±°
     
-    //»ı¸íÃ¼°¡ È°¼ºÈ­µÉ ¶§ »óÅÂ¸¦ ¸®¼Â
+    //ìƒëª…ì²´ê°€ í™œì„±í™”ë  ë•Œ ìƒíƒœë¥¼ ë¦¬ì…‹
     protected virtual void OnEnable()
     {
-        //»ç¸ÁÇÏÁö ¾ÊÀº »óÅÂ·Î ½ÃÀÛ
+        //ì‚¬ë§í•˜ì§€ ì•Šì€ ìƒíƒœë¡œ ì‹œì‘
         dead = false;
-        //Ã¼·Â ÃÊ±âÈ­
+        //ì²´ë ¥ ì´ˆê¸°í™”
         health = startingHealth;
     }
 
-    // ´ë¹ÌÁö ÀÔ´Â ±â´É
-    //OnDamage(´ë¹ÌÁö, °ø°İ´çÇÑ À§Ä¡, °ø°İ´çÇÑ Ç¥¸éÀÇ ¹æÇâ)
+    // ëŒ€ë¯¸ì§€ ì…ëŠ” ê¸°ëŠ¥
+    //OnDamage(ëŒ€ë¯¸ì§€, ê³µê²©ë‹¹í•œ ìœ„ì¹˜, ê³µê²©ë‹¹í•œ í‘œë©´ì˜ ë°©í–¥)
     public virtual void OnDamage(float damage, Vector3 hitPoint, Vector3 hitNormal)
     {
         health -= damage;
@@ -33,7 +33,7 @@ public class LivingEntity : MonoBehaviour
         }
     }
 
-    //Ã¼·Â È¸º¹
+    //ì²´ë ¥ íšŒë³µ
     public virtual void RestoreHealth(float newHealth)
     {
         if (dead)
@@ -43,7 +43,7 @@ public class LivingEntity : MonoBehaviour
         health += newHealth;
     }
 
-    //»ç¸ÁÃ³¸®
+    //ì‚¬ë§ì²˜ë¦¬
     public virtual void Die()
     {
         Debug.Log("Die");
