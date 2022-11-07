@@ -66,7 +66,7 @@ public class MonsterCtrl : LivingEntity
         //추적 대상의 존재 여부에 따라 다른 애니메이션 재생
         //monsterAnimator.SetBool("HasTarget", hasTarget);
     }
-
+    //@TODO : hi
     private IEnumerator UpdatePath()
     {
         while (!dead)
