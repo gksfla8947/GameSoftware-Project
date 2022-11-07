@@ -8,7 +8,6 @@ public class LivingEntity : MonoBehaviour
     public float startingHealth = 100f; //시작 체력
     public float health { get; protected set; } //현재 체력
     public bool dead { get; protected set; } //사망상태
-    public event Action onDeath; //사망 시 발동할 이벤트
 
     public float tempHp; //유니티 창에서 현재 체력 볼려고 임시로 넣은거
     
@@ -46,13 +45,7 @@ public class LivingEntity : MonoBehaviour
     //사망처리
     public virtual void Die()
     {
-        Debug.Log("Die");
-        if(onDeath != null)
-        {
-            //onDeath();    //?
-            gameObject.SetActive(false);
-        }
-        dead = true;
+        gameObject.SetActive(false);
     }
 
 

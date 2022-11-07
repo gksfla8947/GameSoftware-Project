@@ -6,6 +6,7 @@ public class monsterSpawner : MonoBehaviour
 {
     public GameObject monsterPrefab;
     public float spawnRate = 3f; //생성 주기
+    public GameObject spawnPosition;
 
     private float timeAfterSpawn; //최근 생성 이후 지난 시간
 
@@ -14,6 +15,7 @@ public class monsterSpawner : MonoBehaviour
     {
         timeAfterSpawn = 0f;
         GameObject monster = Instantiate(monsterPrefab, transform.position, transform.rotation);
+        monster.transform.position = spawnPosition.transform.position;
     }
 
     // Update is called once per frame
@@ -26,6 +28,7 @@ public class monsterSpawner : MonoBehaviour
             timeAfterSpawn = 0f;
 
             GameObject monster = Instantiate(monsterPrefab, transform.position, transform.rotation);
+            monster.transform.position = spawnPosition.transform.position;
         }
     }
 }
