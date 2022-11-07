@@ -23,17 +23,7 @@ public class MonsterCtrl : LivingEntity
     public float timeBetAttack = 0.5f;//공격 간격
     private float lastAttackTime;//마지막 공격 시점
 
-    private bool hasTarget//추적 대상이 존재하는지 알려주는 프로퍼티
-    {
-        get
-        {
-            if(targetEntity != null && !targetEntity.dead)
-            {
-                return true;
-            }
-            return false;
-        }
-    }
+    
     private void Awake()
     {
         // 게임 오브젝트로부터 사용할 컴포넌트 가져오기
@@ -65,6 +55,9 @@ public class MonsterCtrl : LivingEntity
     private void Start()
     {
         StartCoroutine(UpdatePath());
+
+        //navMeshAgent.enabled = false;
+        navMeshAgent.enabled = true;
     }
 
     // Update is called once per frame
@@ -89,7 +82,7 @@ public class MonsterCtrl : LivingEntity
 
                 //20유닛의 반지름을 가진 가상의 구를 그렸을 때 구와 겹치는 모든 콜라이더를 가져옴
                 //단, whatIsTarget 레이어를 가진 콜라이더만 가져오도록 필터링
-                Collider[] colliders = Physics.OverlapSphere(transform.position, 20f, whatIstarget);
+                Collider[] colliders = Physics.OverlapSphere(transform.position, 500f, whatIstarget);
 
                 //모든 콜라이더를 순회하면서 살아 있는 LivingEntity 찾기
                 for (int i = 0; i < colliders.Length; i++)
@@ -104,6 +97,17 @@ public class MonsterCtrl : LivingEntity
                 }
             }
             yield return new WaitForSeconds(0.25f);
+        }
+    }
+    private bool hasTarget//추적 대상이 존재하는지 알려주는 프로퍼티
+    {
+        get
+        {
+            if (targetEntity != null && !targetEntity.dead)
+            {
+                return true;
+            }
+            return false;
         }
     }
 
