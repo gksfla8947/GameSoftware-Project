@@ -8,9 +8,10 @@ public class LivingEntity : MonoBehaviour
     public float startingHealth = 100f; //시작 체력
     public float health { get; protected set; } //현재 체력
     public bool dead { get; protected set; } //사망상태
+    public event Action onDeath; //사망 시 발동할 이벤트
 
-    public float tempHp;
-
+    public float tempHp; //유니티 창에서 현재 체력 볼려고 임시로 넣은거
+    
     //생명체가 활성화될 때 상태를 리셋
     protected virtual void OnEnable()
     {
@@ -29,7 +30,6 @@ public class LivingEntity : MonoBehaviour
         if (health <= 0 && !dead)
         {
             Die();
-            Debug.Log("die");
         }
     }
 
@@ -46,7 +46,12 @@ public class LivingEntity : MonoBehaviour
     //사망처리
     public virtual void Die()
     {
-        this.gameObject.SetActive(false);
+        Debug.Log("Die");
+        if(onDeath != null)
+        {
+            //onDeath();    //?
+            gameObject.SetActive(false);
+        }
         dead = true;
     }
 
@@ -54,10 +59,12 @@ public class LivingEntity : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        health = startingHealth;
     }
 
     // Update is called once per frame
     void Update()
     {
+        tempHp = health;
     }
 }

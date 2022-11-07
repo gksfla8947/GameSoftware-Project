@@ -7,14 +7,13 @@ public class structure : LivingEntity
     // Start is called before the first frame update
     void Start()
     {
-        health = startingHealth;
-        tempHp = health; //유니티에서 현재 피 보는 용도
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        tempHp = health; //유니티에서 현재 피 보는 용도
+        
     }
 
     public override void OnDamage(float damage, Vector3 hitPoint, Vector3 hitNormal)
