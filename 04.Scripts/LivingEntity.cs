@@ -28,6 +28,7 @@ public class LivingEntity : MonoBehaviour
 
         if (health <= 0 && !dead)
         {
+            dead = true;
             Die();
         }
     }

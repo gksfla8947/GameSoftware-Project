@@ -65,9 +65,6 @@ public class MonsterCtrl : LivingEntity
     private void Start()
     {
         StartCoroutine(UpdatePath());
-
-        navMeshAgent.enabled = false;
-        navMeshAgent.enabled = true;
     }
 
     // Update is called once per frame
@@ -76,7 +73,6 @@ public class MonsterCtrl : LivingEntity
         //추적 대상의 존재 여부에 따라 다른 애니메이션 재생
         //monsterAnimator.SetBool("HasTarget", hasTarget);
     }
-    //@TODO : hi
     private IEnumerator UpdatePath()
     {
         while (!dead)
@@ -152,14 +148,14 @@ public class MonsterCtrl : LivingEntity
 
     public override void Die()
     {
-        base.Die();
-
         //자신의 모든 콜라이더 비활성화
         Collider[] mosterColliders = GetComponents<Collider>();
         for (int i = 0; i < mosterColliders.Length; i++)
         {
             mosterColliders[i].enabled = false;
         }
+
+        base.Die();
 
         //추적 중지, 내비메시 비활성화
         navMeshAgent.isStopped = true;
