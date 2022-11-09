@@ -5,30 +5,32 @@ using UnityEngine;
 public class monsterSpawner : MonoBehaviour
 {
     public GameObject monsterPrefab;
-    public float spawnRate = 3f; //»ý¼º ÁÖ±â
+    public float spawnRate = 3f; //ï¿½ï¿½ï¿½ï¿½ ï¿½Ö±ï¿½
     public GameObject spawnPosition;
 
-    private float timeAfterSpawn; //ÃÖ±Ù »ý¼º ÀÌÈÄ Áö³­ ½Ã°£
+    private float timeAfterSpawn; //ï¿½Ö±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
 
     // Start is called before the first frame update
     void Start()
     {
         timeAfterSpawn = 0f;
-        GameObject monster = Instantiate(monsterPrefab, transform.position, transform.rotation);
-        monster.transform.position = spawnPosition.transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
-        timeAfterSpawn += Time.deltaTime;
-
-        if (timeAfterSpawn >= spawnRate)
+        if(Data.isWaveStart)
         {
-            timeAfterSpawn = 0f;
+            timeAfterSpawn += Time.deltaTime;
 
-            GameObject monster = Instantiate(monsterPrefab, transform.position, transform.rotation);
-            monster.transform.position = spawnPosition.transform.position;
+            if (timeAfterSpawn >= spawnRate)
+            {
+                timeAfterSpawn = 0f;
+
+                GameObject monster = Instantiate(monsterPrefab, transform.position, transform.rotation);
+                monster.transform.position = spawnPosition.transform.position;
+            }
         }
+        
     }
 }
