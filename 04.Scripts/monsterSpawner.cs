@@ -5,27 +5,41 @@ using UnityEngine;
 public class monsterSpawner : MonoBehaviour
 {
     public GameObject monsterPrefab;
+<<<<<<< Updated upstream
     public float spawnRate = 3f; //»ý¼º ÁÖ±â
+=======
+    public float spawnRate = 3f; //ï¿½ï¿½ï¿½ï¿½ ï¿½Ö±ï¿½
+    public GameObject spawnPosition;
+>>>>>>> Stashed changes
 
-    private float timeAfterSpawn; //ÃÖ±Ù »ý¼º ÀÌÈÄ Áö³­ ½Ã°£
+    private float timeAfterSpawn; //ï¿½Ö±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
 
     // Start is called before the first frame update
     void Start()
     {
         timeAfterSpawn = 0f;
+<<<<<<< Updated upstream
         GameObject monster = Instantiate(monsterPrefab, transform.position, transform.rotation);
+=======
+>>>>>>> Stashed changes
     }
 
     // Update is called once per frame
     void Update()
     {
-        timeAfterSpawn += Time.deltaTime;
+        if(Data.isStartWave) {
+            timeAfterSpawn += Time.deltaTime;
 
-        if (timeAfterSpawn >= spawnRate)
-        {
-            timeAfterSpawn = 0f;
+            if (timeAfterSpawn >= spawnRate) {
+                timeAfterSpawn = 0f;
 
+<<<<<<< Updated upstream
             GameObject monster = Instantiate(monsterPrefab, transform.position, transform.rotation);
+=======
+                GameObject monster = Instantiate(monsterPrefab, transform.position, transform.rotation);
+                monster.transform.position = spawnPosition.transform.position;
+            }
+>>>>>>> Stashed changes
         }
     }
 }
