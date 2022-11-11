@@ -2,14 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using System.Linq; //LINQ 사용
 
 
 public class MonsterCtrl : LivingEntity
 {
+    public class Target
+    {
+        public GameObject targetGameobject { get; set; }
+        public float targetDistance { get; set; }
+    }
+
     public LayerMask whatIstarget; //추적 대상 레이어
 
     private LivingEntity targetEntity;//추적 대상
     private NavMeshAgent navMeshAgent;//경로 계산 AI
+
+    List<Target> targets = new List<Target>();
 
     //public ParticleSystem hitEffect;//피격시 재생할 파티클
     //public AudioClip deathSound;//사망시 재생할 소리
@@ -23,17 +32,8 @@ public class MonsterCtrl : LivingEntity
     public float timeBetAttack = 0.5f;//공격 간격
     private float lastAttackTime;//마지막 공격 시점
 
-    private bool hasTarget//추적 대상이 존재하는지 알려주는 프로퍼티
-    {
-        get
-        {
-            if(targetEntity != null && !targetEntity.dead)
-            {
-                return true;
-            }
-            return false;
-        }
-    }
+
+
     private void Awake()
     {
         // 게임 오브젝트로부터 사용할 컴포넌트 가져오기
@@ -43,7 +43,7 @@ public class MonsterCtrl : LivingEntity
 
         //렌더러 컴포넌트는 자식 오브젝트에 있으므로 GetComponentInChildren 사용
         mosterRenderer = GetComponentInChildren<Renderer>();
-        
+
     }
     //좀비 AI의 초기 스펙을 결정하는 셋업 메서드  아직 MonsterData 안만듬
     /*
@@ -73,7 +73,6 @@ public class MonsterCtrl : LivingEntity
         //추적 대상의 존재 여부에 따라 다른 애니메이션 재생
         //monsterAnimator.SetBool("HasTarget", hasTarget);
     }
-
     private IEnumerator UpdatePath()
     {
         while (!dead)
@@ -87,23 +86,48 @@ public class MonsterCtrl : LivingEntity
             {
                 navMeshAgent.isStopped = true;
 
-                //20유닛의 반지름을 가진 가상의 구를 그렸을 때 구와 겹치는 모든 콜라이더를 가져옴
+                //1000유닛의 반지름을 가진 가상의 구를 그렸을 때 구와 겹치는 모든 콜라이더를 가져옴
                 //단, whatIsTarget 레이어를 가진 콜라이더만 가져오도록 필터링
-                Collider[] colliders = Physics.OverlapSphere(transform.position, 20f, whatIstarget);
+                targets.Clear();
+                Collider[] colliders = Physics.OverlapSphere(transform.position, 1000f, whatIstarget);
 
                 //모든 콜라이더를 순회하면서 살아 있는 LivingEntity 찾기
                 for (int i = 0; i < colliders.Length; i++)
                 {
-                    LivingEntity livingEntity = colliders[i].GetComponent<LivingEntity>();
+                    GameObject target = colliders[i].gameObject;
 
-                    if (livingEntity != null && !livingEntity.dead)
-                    {
-                        targetEntity = livingEntity; //발견한 대상을 추적하는 코드인데 변경이 필요함
-                        break;
-                    }
+                    float dstToTarget = Vector3.Distance(transform.position, target.transform.position); //타겟과의 거리 계산
+
+                    targets.Add(new Target() { targetGameobject = target, targetDistance = dstToTarget });
+                }
+                var result = from sortDistance in targets orderby sortDistance.targetDistance select sortDistance;
+
+                LivingEntity livingEntity = null;
+                foreach (Target aa in result)
+                {
+                    livingEntity = aa.targetGameobject.GetComponent<LivingEntity>();
+                    break;
+                }
+
+
+                if (livingEntity != null && !livingEntity.dead)
+                {
+                    targetEntity = livingEntity; //발견한 대상을 추적하는 코드인데 변경이 필요함
+                                                 //break;
                 }
             }
             yield return new WaitForSeconds(0.25f);
+        }
+    }
+    private bool hasTarget//추적 대상이 존재하는지 알려주는 프로퍼티
+    {
+        get
+        {
+            if (targetEntity != null && !targetEntity.dead)
+            {
+                return true;
+            }
+            return false;
         }
     }
 
@@ -124,14 +148,14 @@ public class MonsterCtrl : LivingEntity
 
     public override void Die()
     {
-        base.Die();
-
         //자신의 모든 콜라이더 비활성화
         Collider[] mosterColliders = GetComponents<Collider>();
         for (int i = 0; i < mosterColliders.Length; i++)
         {
             mosterColliders[i].enabled = false;
         }
+
+        base.Die();
 
         //추적 중지, 내비메시 비활성화
         navMeshAgent.isStopped = true;
@@ -146,15 +170,17 @@ public class MonsterCtrl : LivingEntity
 
     //트리거 충돌한 상대방 게임 오브젝트가 추적 대상이라면 공격 실행
     private void OnTriggerStay(Collider other)
-    { 
-        //자신이 사망하지 않았고 공격 딜레이가 지남
-        if (!dead && Time.time >= lastAttackTime + timeBetAttack)
-        {
-            // 상대방의 livingentity 가져옴
-            LivingEntity attackTarget = other.GetComponent<LivingEntity>();
+    {
+        // 상대방의 livingentity 가져옴
+        LivingEntity attackTarget = other.GetComponent<LivingEntity>();
 
-            //추적 대상이면 공격
-            if (attackTarget != null && attackTarget == targetEntity)
+        //추적 대상이면
+        if (attackTarget != null && attackTarget == targetEntity)
+        {
+            navMeshAgent.isStopped = true;
+
+            //자신이 사망하지 않았고 공격 딜레이가 지났으면 공격
+            if (!dead && Time.time >= lastAttackTime + timeBetAttack)
             {
                 lastAttackTime = Time.time;
 
