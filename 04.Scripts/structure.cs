@@ -34,13 +34,14 @@ public class structure : LivingEntity
     public override void Die()
     {
         base.Die();
-
         //자신의 모든 콜라이더 비활성화
         Collider[] mosterColliders = GetComponents<Collider>();
         for (int i = 0; i < mosterColliders.Length; i++)
         {
             mosterColliders[i].enabled = false;
         }
+
+        
 
         //사망 애니메이션 재생
         //mosterAnimator.Settrigger("Die");
