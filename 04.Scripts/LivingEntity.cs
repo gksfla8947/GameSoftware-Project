@@ -26,7 +26,7 @@ public class LivingEntity : MonoBehaviour
     {
         health -= damage;
 
-        if (health <= 0 && !dead)
+        if (health <= 0)
         {
             dead = true;
             Die();
@@ -53,7 +53,7 @@ public class LivingEntity : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        health = startingHealth;
+        // health = startingHealth;
     }
 
     // Update is called once per frame

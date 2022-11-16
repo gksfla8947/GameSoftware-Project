@@ -1924,6 +1924,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingHealth: 100
   tempHp: 0
+  attackRange: 5
+  bulletPrefab: {fileID: 249754273978406326, guid: 6556a5c43c2facd4e98e9b240d55ebc2, type: 3}
   whatIstarget:
     serializedVersion: 2
     m_Bits: 8

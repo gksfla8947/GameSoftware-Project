@@ -13,6 +13,9 @@ public class MonsterCtrl : LivingEntity
         public float targetDistance { get; set; }
     }
 
+    public float attackRange = 5; //공격 사정거리
+    public GameObject bulletPrefab;
+
     public LayerMask whatIstarget; //추적 대상 레이어
 
     private LivingEntity targetEntity;//추적 대상
@@ -43,7 +46,7 @@ public class MonsterCtrl : LivingEntity
 
         //렌더러 컴포넌트는 자식 오브젝트에 있으므로 GetComponentInChildren 사용
         mosterRenderer = GetComponentInChildren<Renderer>();
-
+        whatIstarget = LayerMask.GetMask("Target");
     }
     //좀비 AI의 초기 스펙을 결정하는 셋업 메서드  아직 MonsterData 안만듬
     /*
@@ -75,12 +78,19 @@ public class MonsterCtrl : LivingEntity
     }
     private IEnumerator UpdatePath()
     {
-        while (!dead)
+        while (true)
         {
             if (hasTarget)//추적 대상이 존재
             {
                 navMeshAgent.isStopped = false;
                 navMeshAgent.SetDestination(targetEntity.transform.position);
+
+                float dstToTarget = Vector3.Distance(transform.position, targetEntity.transform.position); //타겟과의 거리 계산
+                if (dstToTarget <= attackRange)
+                {
+                    navMeshAgent.isStopped = true;
+                    attack(targetEntity);
+                }
             }
             else
             {
@@ -112,11 +122,11 @@ public class MonsterCtrl : LivingEntity
 
                 if (livingEntity != null && !livingEntity.dead)
                 {
-                    targetEntity = livingEntity; //발견한 대상을 추적하는 코드인데 변경이 필요함
-                                                 //break;
+                    targetEntity = livingEntity;
                 }
             }
-            yield return new WaitForSeconds(0.25f);
+
+            yield return null;
         }
     }
     private bool hasTarget//추적 대상이 존재하는지 알려주는 프로퍼티
@@ -192,6 +202,22 @@ public class MonsterCtrl : LivingEntity
                 attackTarget.OnDamage(damage, hitPoint, hitnomal);
 
             }
+        }
+    }
+
+    private void attack(LivingEntity target)
+    {
+        //자신이 사망하지 않았고 공격 딜레이가 지났으면 공격
+        if (!dead && Time.time >= lastAttackTime + timeBetAttack)
+        {
+            lastAttackTime = Time.time;
+
+            // GameObject bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
+            Vector3 curPos = transform.position;
+            curPos.y += 0.4f;
+            GameObject bullet = Instantiate(bulletPrefab, curPos, Quaternion.identity);
+            bullet.transform.LookAt(targetEntity.transform);
+
         }
     }
 }

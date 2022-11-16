@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1331,8 +1331,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 261623498}
-  - {fileID: 1393574449}
   - {fileID: 1972076323}
+  - {fileID: 1393574449}
   - {fileID: 1890552102}
   m_Father: {fileID: 0}
   m_RootOrder: 3
@@ -2510,7 +2510,7 @@ Transform:
   - {fileID: 284309065}
   - {fileID: 1201079719}
   m_Father: {fileID: 902403723}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1589728989
 PrefabInstance:
@@ -3088,6 +3088,18 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 113441342955346720, guid: 8ea57a52229e40f439f1ae903147e771, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 113441342955346720, guid: 8ea57a52229e40f439f1ae903147e771, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 113441342955346720, guid: 8ea57a52229e40f439f1ae903147e771, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 113441342955346720, guid: 8ea57a52229e40f439f1ae903147e771, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -3280,7 +3292,7 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 4
-  m_Center: {x: 3, y: 2, z: -4.5}
+  m_Center: {x: 0, y: 2, z: 0}
 --- !u!4 &1890552102 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 113441342955346720, guid: 8ea57a52229e40f439f1ae903147e771, type: 3}
@@ -3393,7 +3405,7 @@ Transform:
   - {fileID: 2048990301}
   - {fileID: 2035307071}
   m_Father: {fileID: 902403723}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1981152006
 GameObject:
