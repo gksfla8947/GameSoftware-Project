@@ -2,31 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public class MeleeAttack : MonoBehaviour
 {
-    [SerializeField]
-    private float speed = 300f;
-    private Rigidbody bulletRigidbody;
 
+    public Rigidbody meleeAttackRigidbody;
     public float damage = 20f;
 
+    // Start is called before the first frame update
     private void Awake()
     {
-        bulletRigidbody = GetComponent<Rigidbody>();
-        bulletRigidbody.velocity = transform.forward * speed;
+        meleeAttackRigidbody = GetComponent<Rigidbody>();
     }
-
-    // Start is called before the first frame update
     void Start()
     {
-        bulletRigidbody.velocity = transform.forward * speed * Time.deltaTime;
-
-        Destroy(gameObject, 2f); //2초 뒤 자동 파괴
-    }
-
-    private void FixedUpdate()
-    {
-
+        Destroy(gameObject, 0.1f);
     }
 
     private void OnTriggerEnter(Collider other)

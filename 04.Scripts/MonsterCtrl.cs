@@ -57,7 +57,6 @@ public class MonsterCtrl : LivingEntity
         Player = GameObject.FindGameObjectWithTag("Player");
         //Hair = GameObject.FindGameObjectWithTag("Hair");
         Hair = GameObject.Find("Stage").transform.GetChild(2).gameObject;
-        Debug.Log(Hair);
         StartCoroutine(UpdatePath());
     }
 
@@ -74,9 +73,6 @@ public class MonsterCtrl : LivingEntity
 
             DistHair = Vector3.Distance(transform.position, Hair.transform.position);
             DistPlayer = Vector3.Distance(transform.position, Player.transform.position);
-
-            Debug.Log("DistHair: " + DistHair);
-            Debug.Log("DistPlayer: " + DistPlayer);
 
             if (DistPlayer < DistHair) //머리카락보다 플레이어가 가까우면
             {
@@ -102,17 +98,6 @@ public class MonsterCtrl : LivingEntity
             yield return new WaitForSeconds(0.25f);
         }
     }
-    /*private bool hasTarget//추적 대상이 존재하는지 알려주는 프로퍼티
-    {
-        get
-        {
-            if (targetEntity != null && !targetEntity.dead)
-            {
-                return true;
-            }
-            return false;
-        }
-    }*/
 
     public override void OnDamage(float damage, Vector3 hitPoint, Vector3 hitNormal)
     {
@@ -190,7 +175,6 @@ public class MonsterCtrl : LivingEntity
             curPos.y += 0.4f;
             GameObject bullet = Instantiate(bulletPrefab, curPos, Quaternion.identity);
             bullet.transform.LookAt(targetEntity.transform);
-            bullet.SendMessage("DebugLoc", curPos);
 
         }
     }

@@ -41,6 +41,10 @@ public class LivingEntity : MonoBehaviour
             return;
         }
         health += newHealth;
+        if (health > startingHealth)
+        {
+            health = startingHealth;
+        }
     }
 
     //사망처리
