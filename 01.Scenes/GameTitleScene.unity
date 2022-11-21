@@ -877,7 +877,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f20d7166ce59bf446b5b84fd44cd30ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SceneToLoad: MainStage#1
+  SceneToLoad: GameScene-Hanrim
 --- !u!4 &1938648430
 Transform:
   m_ObjectHideFlags: 0
