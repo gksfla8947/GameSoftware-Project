@@ -24,6 +24,11 @@ public class Bullet : MonoBehaviour
         Destroy(gameObject, 2f); //2초 뒤 자동 파괴
     }
 
+    public void DebugLoc(Vector3 playerPos)
+    {
+        //Debug.Log("attack pos : " + playerPos.ToString());
+    }
+
     private void FixedUpdate()
     {
 

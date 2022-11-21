@@ -5,7 +5,7 @@ using UnityEngine.AI;
 using System.Linq; //LINQ 사용
 
 
-public class MonsterCtrl : LivingEntity
+public class HealerCtrl : LivingEntity
 {
     private GameObject Hair;
     private GameObject Player;
@@ -16,14 +16,11 @@ public class MonsterCtrl : LivingEntity
 
 
     public float attackRange = 5; //공격 사정거리
-    public GameObject bulletPrefab;
 
-    //public LayerMask whatIstarget; //추적 대상 레이어 필요 없어짐
 
     private LivingEntity targetEntity;//추적 대상
     private NavMeshAgent navMeshAgent;//경로 계산 AI
 
-    //List<Target> targets = new List<Target>(); 필요 없어짐
 
     //public ParticleSystem hitEffect;//피격시 재생할 파티클
     //public AudioClip deathSound;//사망시 재생할 소리
@@ -48,16 +45,14 @@ public class MonsterCtrl : LivingEntity
 
         //렌더러 컴포넌트는 자식 오브젝트에 있으므로 GetComponentInChildren 사용
         mosterRenderer = GetComponentInChildren<Renderer>();
-        // whatIstarget = LayerMask.GetMask("Target"); 필요 없어짐
     }
+
 
     // Start is called before the first frame update
     private void Start()
     {
         Player = GameObject.FindGameObjectWithTag("Player");
-        //Hair = GameObject.FindGameObjectWithTag("Hair");
-        Hair = GameObject.Find("Stage").transform.GetChild(2).gameObject;
-        Debug.Log(Hair);
+        Hair = GameObject.FindGameObjectWithTag("Hair");
         StartCoroutine(UpdatePath());
     }
 
@@ -71,12 +66,8 @@ public class MonsterCtrl : LivingEntity
     {
         while (!dead)
         {
-
             DistHair = Vector3.Distance(transform.position, Hair.transform.position);
             DistPlayer = Vector3.Distance(transform.position, Player.transform.position);
-
-            Debug.Log("DistHair: " + DistHair);
-            Debug.Log("DistPlayer: " + DistPlayer);
 
             if (DistPlayer < DistHair) //머리카락보다 플레이어가 가까우면
             {
@@ -88,13 +79,14 @@ public class MonsterCtrl : LivingEntity
                 targetEntity = Hair.GetComponent<LivingEntity>();
                 DistTarget = DistHair;
             }
+
             if (DistTarget <= attackRange) //타겟과의 거리가 공격범위 이하이면 공격
             {
                 navMeshAgent.isStopped = true;
-                attack(targetEntity);
+                heal(targetEntity);
             }
             else //아니면 타겟을 향해 이동
-            { 
+            {
                 navMeshAgent.isStopped = false;
                 navMeshAgent.SetDestination(targetEntity.transform.position);
             }
@@ -102,17 +94,6 @@ public class MonsterCtrl : LivingEntity
             yield return new WaitForSeconds(0.25f);
         }
     }
-    /*private bool hasTarget//추적 대상이 존재하는지 알려주는 프로퍼티
-    {
-        get
-        {
-            if (targetEntity != null && !targetEntity.dead)
-            {
-                return true;
-            }
-            return false;
-        }
-    }*/
 
     public override void OnDamage(float damage, Vector3 hitPoint, Vector3 hitNormal)
     {
@@ -151,46 +132,14 @@ public class MonsterCtrl : LivingEntity
 
     }
 
-    //트리거 충돌한 상대방 게임 오브젝트가 추적 대상이라면 공격 실행
-    private void OnTriggerStay(Collider other)
-    {
-        // 상대방의 livingentity 가져옴
-        LivingEntity attackTarget = other.GetComponent<LivingEntity>();
-
-        //추적 대상이면
-        if (attackTarget != null && attackTarget == targetEntity)
-        {
-            navMeshAgent.isStopped = true;
-
-            //자신이 사망하지 않았고 공격 딜레이가 지났으면 공격
-            if (!dead && Time.time >= lastAttackTime + timeBetAttack)
-            {
-                lastAttackTime = Time.time;
-
-                //상대방의 피격 위치와 피격 방향을 근삿값으로 계산
-                Vector3 hitPoint = other.ClosestPoint(transform.position);
-                Vector3 hitnomal = transform.position - other.transform.position;
-
-                //공격 실행
-                attackTarget.OnDamage(damage, hitPoint, hitnomal);
-
-            }
-        }
-    }
-
-    private void attack(LivingEntity target)
+    private void heal(LivingEntity target)
     {
         //자신이 사망하지 않았고 공격 딜레이가 지났으면 공격
         if (!dead && Time.time >= lastAttackTime + timeBetAttack)
         {
             lastAttackTime = Time.time;
 
-            // GameObject bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
-            Vector3 curPos = transform.position;
-            curPos.y += 0.4f;
-            GameObject bullet = Instantiate(bulletPrefab, curPos, Quaternion.identity);
-            bullet.transform.LookAt(targetEntity.transform);
-            bullet.SendMessage("DebugLoc", curPos);
+            
 
         }
     }
