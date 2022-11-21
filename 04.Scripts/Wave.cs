@@ -8,7 +8,7 @@ public class Wave : MonoBehaviour
     [HideInInspector]
     public bool isBattleWave;
     [HideInInspector]
-    public int battleWaveNum = 1;
+    static public int battleWaveNum = 1;
 
     protected virtual void Awake()
     {
@@ -25,7 +25,6 @@ public class Wave : MonoBehaviour
     {
         gm.addCurrentWaveNum();
         gm.setIsWaveStart(false);
-        gm.setWaveUI();
         gameObject.SetActive(false);
     }
 }

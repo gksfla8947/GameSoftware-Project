@@ -26,7 +26,6 @@ public class BulletAction : MonoBehaviour
             if (gm.getIsWaveStart())
             {
                 gm.setKillCount(gm.getKillCount() + 1);
-                gm.setScoreUI();
             }         
         }
     }

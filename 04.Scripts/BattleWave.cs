@@ -38,7 +38,6 @@ public class BattleWave : Wave
     protected override void EndWave()
     {
         gm.setKillCount(0);
-        gm.setScoreUI();
         battleWaveNum += 1;
         foreach (monsterSpawner spawner in spawners)
         {
