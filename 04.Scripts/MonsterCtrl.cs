@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using System.Linq; //LINQ 사용
+using static UnityEngine.GraphicsBuffer;
 
 
 public class MonsterCtrl : LivingEntity
@@ -12,8 +13,10 @@ public class MonsterCtrl : LivingEntity
         public GameObject targetGameobject { get; set; }
         public float targetDistance { get; set; }
     }
-
+    public float damage = 20f;//공격력
+    public float timeBetAttack = 1f;//공격 간격
     public LayerMask whatIstarget; //추적 대상 레이어
+    public string targetName;
 
     private LivingEntity targetEntity;//추적 대상
     private NavMeshAgent navMeshAgent;//경로 계산 AI
@@ -24,46 +27,29 @@ public class MonsterCtrl : LivingEntity
     //public AudioClip deathSound;//사망시 재생할 소리
     //public AudioClip hitSound;//피격시 재생할 소리
 
-    //private Animator mosterAnimator;//애니메이터 컴포넌트
-    //private AudioSource monsterAudioPlayer;//오디오 소스 컴포넌트
-    private Renderer mosterRenderer;//렌더러 컴포넌트
+    private Animator monsterAnimator; //애니메이터 컴포넌트
+    private AudioSource monsterAudioPlayer;//오디오 소스 컴포넌트
+    private Renderer monsterRenderer;//렌더러 컴포넌트
 
-    public float damage = 20f;//공격력
-    public float timeBetAttack = 0.5f;//공격 간격
+    private bool inAttackRange;
+    
     private float lastAttackTime;//마지막 공격 시점
-
-
 
     private void Awake()
     {
         // 게임 오브젝트로부터 사용할 컴포넌트 가져오기
         navMeshAgent = GetComponent<NavMeshAgent>();
-        //monsterAnimator = GetComponent<Animator>();  애니메이터, 지금 없음
-        //monsterAudioPlayer = GetComponent<AudioSource>();   오디오 플레이어, 지금 없음
+        monsterAnimator = GetComponent<Animator>();
 
         //렌더러 컴포넌트는 자식 오브젝트에 있으므로 GetComponentInChildren 사용
-        mosterRenderer = GetComponentInChildren<Renderer>();
-
+        monsterRenderer = GetComponentInChildren<Renderer>();
     }
-    //좀비 AI의 초기 스펙을 결정하는 셋업 메서드  아직 MonsterData 안만듬
-    /*
-     public void Setup(MosterData monsterData)
-    {
-        startingHealth = mosterData.health; //체력 설정
-        health = mosterData.health; //체력 설정
-        
-        damage = mosterData.damage; //공격력 설정
-        pathMeshAgent.speed = mosterData.speed;//이동속도 설정
-
-        //렌더러가 사용 중인 머테리얼의 컬러를 변경, 외형 색이 변함,  우리 프로젝트엔 필요 없는 부분일듯함
-        mosterRenderer.material.color = monsterData.skinColor;
-    }
-    */
 
 
     // Start is called before the first frame update
     private void Start()
     {
+        
         StartCoroutine(UpdatePath());
     }
 
@@ -71,7 +57,8 @@ public class MonsterCtrl : LivingEntity
     void Update()
     {
         //추적 대상의 존재 여부에 따라 다른 애니메이션 재생
-        //monsterAnimator.SetBool("HasTarget", hasTarget);
+        monsterAnimator.SetBool("HasTarget", hasTarget);
+        monsterAnimator.SetBool("isAttack", inAttackRange);
     }
     private IEnumerator UpdatePath()
     {
@@ -80,6 +67,7 @@ public class MonsterCtrl : LivingEntity
             if (hasTarget)//추적 대상이 존재
             {
                 navMeshAgent.isStopped = false;
+                inAttackRange = false;
                 navMeshAgent.SetDestination(targetEntity.transform.position);
             }
             else
@@ -101,6 +89,7 @@ public class MonsterCtrl : LivingEntity
                     targets.Add(new Target() { targetGameobject = target, targetDistance = dstToTarget });
                 }
                 var result = from sortDistance in targets orderby sortDistance.targetDistance select sortDistance;
+           
 
                 LivingEntity livingEntity = null;
                 foreach (Target aa in result)
@@ -162,7 +151,7 @@ public class MonsterCtrl : LivingEntity
         navMeshAgent.enabled = false;
 
         //사망 애니메이션 재생
-        //mosterAnimator.Settrigger("Die");
+        monsterAnimator.SetTrigger("Die");
         //사망 효과음 재생
         //mosterAudioPlayer.PlayOneShot(deathSound);
 
@@ -173,11 +162,11 @@ public class MonsterCtrl : LivingEntity
     {
         // 상대방의 livingentity 가져옴
         LivingEntity attackTarget = other.GetComponent<LivingEntity>();
-
         //추적 대상이면
         if (attackTarget != null && attackTarget == targetEntity)
         {
             navMeshAgent.isStopped = true;
+            inAttackRange = true;
 
             //자신이 사망하지 않았고 공격 딜레이가 지났으면 공격
             if (!dead && Time.time >= lastAttackTime + timeBetAttack)
@@ -190,7 +179,6 @@ public class MonsterCtrl : LivingEntity
 
                 //공격 실행
                 attackTarget.OnDamage(damage, hitPoint, hitnomal);
-
             }
         }
     }
