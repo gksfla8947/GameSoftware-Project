@@ -4,11 +4,19 @@ using UnityEngine;
 
 public class CameraCtrl : MonoBehaviour
 {
-    public GameObject Player;            
+    public GameObject Player;
+    public GameObject MainCamera;
 
-    public float offsetX = 0f;      
-    public float offsetY = 10f;           
-    public float offsetZ = 0f;         
+    public float offsetX = 0f;
+    public float offsetY = 0f;
+    public float offsetZ = 0f;
+
+    private void Start()
+    {
+        offsetX = MainCamera.transform.position.x- Player.transform.position.x;
+        offsetY = MainCamera.transform.position.y- Player.transform.position.y;
+        offsetZ = MainCamera.transform.position.z- Player.transform.position.z;
+    }
 
     public float CameraSpeed = 10.0f;       
     Vector3 PlayerPos;                      
