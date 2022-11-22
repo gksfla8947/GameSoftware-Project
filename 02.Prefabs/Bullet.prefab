@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1315613677359922461}
   - component: {fileID: 9114833751342150633}
   - component: {fileID: 4654175700922765331}
-  m_Layer: 3
+  m_Layer: 8
   m_Name: Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -109,8 +109,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2838194023576813480}
   - component: {fileID: 3024589595413700683}
-  - component: {fileID: 7638667942944087403}
-  m_Layer: 3
+  - component: {fileID: 6886631338600400934}
+  m_Layer: 8
   m_Name: Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -146,7 +146,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletSpeed: 20
---- !u!54 &7638667942944087403
+--- !u!54 &6886631338600400934
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -173,7 +173,7 @@ GameObject:
   - component: {fileID: 4374400643154803565}
   - component: {fileID: 4286704869900766990}
   - component: {fileID: 2680956793066480109}
-  m_Layer: 3
+  m_Layer: 8
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -21,8 +21,9 @@ public class BulletAction : MonoBehaviour
     {
         if(other.gameObject.layer == LayerMask.NameToLayer("Monster"))
         {
-            Destroy(gameObject);
             Destroy(other.gameObject);
+            Destroy(gameObject);
+            
             if (gm.getIsWaveStart())
             {
                 gm.setKillCount(gm.getKillCount() + 1);

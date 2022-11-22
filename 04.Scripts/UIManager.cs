@@ -10,10 +10,14 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI waveText;
     public TextMeshProUGUI hpText;
-    public Canvas ItemSelectUI;
+    public TextMeshProUGUI powerText;
+    public TextMeshProUGUI speedText;
+    //public TextMeshProUGUI hpText;
+    public GameObject ItemSelectUI;
     //public TextMeshProUGUI mpText;
     //public TextMeshProUGUI 
-
+    public GameObject StartButton;
+    private int itemflag = 0;//itemUI swich
     // Start is called before the first frame update
     void Start()
     {
@@ -25,17 +29,19 @@ public class UIManager : MonoBehaviour
     {
         setScoreUI();
         setWaveUI();
+        setstate();
+        setitemUI();
     }
 
     public void setScoreUI()
     {
         if(gm.currentWave.isBattleWave)
         {
-            scoreText.text = "Score : " + (gm.currentWave.GetComponentInChildren<BattleWave>().winToKillNum - gm.getKillCount());
+            scoreText.text = ""+(gm.currentWave.GetComponentInChildren<BattleWave>().winToKillNum - gm.getKillCount());
         }
         else
         {
-            scoreText.text = "Score : 0";
+            scoreText.text = "0";
         }
     }
 
@@ -43,11 +49,34 @@ public class UIManager : MonoBehaviour
     {
         if (gm.currentWave.isBattleWave)
         {
-            waveText.text = "«ˆ¿Á ø˛¿Ã∫Í : " + Wave.battleWaveNum;
+            waveText.text = "Ïõ®Ïù¥Î∏å : " + Wave.battleWaveNum;
         }
         else
         {
-            waveText.text = "«¡∏Æ ø˛¿Ã∫Í";
+            waveText.text = "ÌîÑÎ¶¨Ïõ®Ïù¥Î∏å";
+            StartButton.SetActive(true);
+        }
+        
+    }
+    public void setstate()
+    {
+        hpText.text = "HP : " + gm.hp;
+        powerText.text = "power : " + gm.power;
+        speedText.text = "speed : " + gm.speed;
+    }
+    public void setitemUI()
+    {
+        if (gm.currentWave.isBattleWave)
+        {
+            itemflag=1;
+        }
+        else
+        {
+            if(itemflag == 1)
+            {
+                ItemSelectUI.SetActive(true);
+            }
+            itemflag=0;
         }
     }
 }
