@@ -6,9 +6,9 @@ public class ItemStat : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    public static float DamageUp = 0f;
-    public static float HpUp = 0f;
-    public static float SpeedUp = 0f;
+    public float DamageUp = 0f;
+    public float HpUp = 0f;
+    public float SpeedUp = 0f;
 
     void Start()
     {
