@@ -56,7 +56,7 @@ public class MonsterCtrl : LivingEntity
     {
         Player = GameObject.FindGameObjectWithTag("Player");
         //Hair = GameObject.FindGameObjectWithTag("Hair");
-        Hair = GameObject.Find("Stage").transform.GetChild(2).gameObject;
+        Hair = GameObject.Find("Stage").transform.GetChild(3).gameObject;
         StartCoroutine(UpdatePath());
     }
 
@@ -136,6 +136,11 @@ public class MonsterCtrl : LivingEntity
 
     }
 
+    public override void RestoreHealth(float newHealth)
+    {
+        base.RestoreHealth(newHealth);
+    }
+
     //트리거 충돌한 상대방 게임 오브젝트가 추적 대상이라면 공격 실행
     private void OnTriggerStay(Collider other)
     {
@@ -172,7 +177,7 @@ public class MonsterCtrl : LivingEntity
 
             // GameObject bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
             Vector3 curPos = transform.position;
-            curPos.y += 0.4f;
+            curPos.y += 1f;
             GameObject bullet = Instantiate(bulletPrefab, curPos, Quaternion.identity);
             bullet.transform.LookAt(targetEntity.transform);
 

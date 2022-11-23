@@ -21,6 +21,10 @@ public class HealerCtrl : LivingEntity
     private LivingEntity targetEntity;//추적 대상
     private NavMeshAgent navMeshAgent;//경로 계산 AI
 
+    public LayerMask Monster;
+
+    public float recoveryAmount = 1; //힐량
+
 
     //public ParticleSystem hitEffect;//피격시 재생할 파티클
     //public AudioClip deathSound;//사망시 재생할 소리
@@ -45,6 +49,7 @@ public class HealerCtrl : LivingEntity
 
         //렌더러 컴포넌트는 자식 오브젝트에 있으므로 GetComponentInChildren 사용
         mosterRenderer = GetComponentInChildren<Renderer>();
+        Monster = LayerMask.GetMask("Monster");
     }
 
 
@@ -83,7 +88,7 @@ public class HealerCtrl : LivingEntity
             if (DistTarget <= attackRange) //타겟과의 거리가 공격범위 이하이면 공격
             {
                 navMeshAgent.isStopped = true;
-                heal(targetEntity);
+                heal();
             }
             else //아니면 타겟을 향해 이동
             {
@@ -131,15 +136,29 @@ public class HealerCtrl : LivingEntity
         //mosterAudioPlayer.PlayOneShot(deathSound);
 
     }
+    public override void RestoreHealth(float newHealth)
+    {
+        base.RestoreHealth(newHealth);
+    }
 
-    private void heal(LivingEntity target)
+    private void heal()
     {
         //자신이 사망하지 않았고 공격 딜레이가 지났으면 공격
         if (!dead && Time.time >= lastAttackTime + timeBetAttack)
         {
             lastAttackTime = Time.time;
 
+            Collider[] colliders = Physics.OverlapSphere(transform.position, 10f, Monster);
             
+            for (int i = 0; i < colliders.Length; i++)
+            {
+                LivingEntity monster = colliders[i].GetComponent<LivingEntity>();
+                
+                if (monster.gameObject.layer == 6 && monster != null && !monster.dead)
+                {
+                    monster.GetComponent<LivingEntity>().RestoreHealth(recoveryAmount);
+                }
+            }
 
         }
     }

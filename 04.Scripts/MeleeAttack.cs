@@ -15,6 +15,7 @@ public class MeleeAttack : MonoBehaviour
     }
     void Start()
     {
+        transform.Translate(Vector3.forward * 1);
         Destroy(gameObject, 0.1f);
     }
 

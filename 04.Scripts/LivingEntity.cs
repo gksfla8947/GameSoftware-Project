@@ -40,7 +40,9 @@ public class LivingEntity : MonoBehaviour
         {
             return;
         }
+        Debug.Log("heal");
         health += newHealth;
+
         if (health > startingHealth)
         {
             health = startingHealth;

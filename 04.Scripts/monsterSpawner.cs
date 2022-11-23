@@ -5,11 +5,15 @@ using UnityEngine;
 public class monsterSpawner : MonoBehaviour
 {
     public GameObject monsterPrefab;
-    public float spawnRate = 3f; //���� �ֱ�
-    public GameObject spawnPosition;
+    public float spawnRate = 3f;
 
-    private float timeAfterSpawn; //�ֱ� ���� ���� ���� �ð�
+    private float timeAfterSpawn;
+    private GameManager gm;
 
+    private void Awake()
+    {
+        gameObject.SetActive(false);
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -19,18 +23,12 @@ public class monsterSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Data.isWaveStart)
+        timeAfterSpawn += Time.deltaTime;
+        if (timeAfterSpawn >= spawnRate)
         {
-            timeAfterSpawn += Time.deltaTime;
+            timeAfterSpawn = 0f;
 
-            if (timeAfterSpawn >= spawnRate)
-            {
-                timeAfterSpawn = 0f;
-
-                GameObject monster = Instantiate(monsterPrefab, transform.position, transform.rotation);
-                monster.transform.position = spawnPosition.transform.position;
-            }
+            GameObject monster = Instantiate(monsterPrefab, transform.position, transform.rotation);
         }
-        
-    }
+    }             
 }
