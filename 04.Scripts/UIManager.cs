@@ -37,7 +37,7 @@ public class UIManager : MonoBehaviour
     {
         if(gm.currentWave.isBattleWave)
         {
-            scoreText.text = ""+(gm.currentWave.GetComponentInChildren<BattleWave>().winToKillNum - gm.getKillCount());
+            scoreText.text = "" + (gm.currentWave.GetComponentInChildren<BattleWave>().winToKillNum - gm.getKillCount());
         }
         else
         {
