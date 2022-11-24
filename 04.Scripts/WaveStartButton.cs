@@ -5,6 +5,7 @@ using UnityEngine;
 public class WaveStartButton : MonoBehaviour
 {
     GameManager gm;
+    
     private void Start()
     {
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();

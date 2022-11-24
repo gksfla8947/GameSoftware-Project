@@ -13,8 +13,9 @@ public class GameManager : MonoBehaviour
 
     private bool isWaveStart = false;
     private int killCount = 0;
-
-
+    public int hp = 100;
+    public int power = 10;
+    public int speed = 5;
     // Start is called before the first frame update
     void Start()
     {
