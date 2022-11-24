@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44504857, g: 0.4946407, b: 0.57373834, a: 1}
+  m_IndirectSpecularColor: {r: 0.44504875, g: 0.4946409, b: 0.57373875, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4487,10 +4487,10 @@ MonoBehaviour:
   scoreText: {fileID: 1636137336}
   waveText: {fileID: 1948177345}
   hpText: {fileID: 1512880311}
-  powerText: {fileID: 1099271851}
-  speedText: {fileID: 517484897}
+  powerText: {fileID: 0}
+  speedText: {fileID: 0}
   ItemSelectUI: {fileID: 63658804}
-  StartButton: {fileID: 581991515}
+  StartButton: {fileID: 0}
 --- !u!4 &1350176494
 Transform:
   m_ObjectHideFlags: 0
