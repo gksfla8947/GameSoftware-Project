@@ -166,6 +166,10 @@ public class MeleeMonsterCtrl : LivingEntity
 
             }
         }
+        if(attackTarget.dead)
+        {
+            return;
+        }
     }
 
     private void attack(LivingEntity target)

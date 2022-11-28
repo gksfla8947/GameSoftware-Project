@@ -703,7 +703,7 @@ PrefabInstance:
     - target: {fileID: 1891012008044450421, guid: 2ae7d86aa6645754f9c10f2fccf59af7, type: 3}
       propertyPath: monsterPrefab
       value: 
-      objectReference: {fileID: 4336771510228491713, guid: 5dde49c3e6721be45a123a368dd63bd5, type: 3}
+      objectReference: {fileID: 4786184472294944528, guid: 6359a80558eac6a4c8931e8cc1948b46, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ae7d86aa6645754f9c10f2fccf59af7, type: 3}
 --- !u!1 &215216872
@@ -3851,7 +3851,7 @@ PrefabInstance:
     - target: {fileID: 1891012008044450421, guid: 2ae7d86aa6645754f9c10f2fccf59af7, type: 3}
       propertyPath: monsterPrefab
       value: 
-      objectReference: {fileID: 4336771510228491713, guid: 5dde49c3e6721be45a123a368dd63bd5, type: 3}
+      objectReference: {fileID: 4786184472294944528, guid: 6359a80558eac6a4c8931e8cc1948b46, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ae7d86aa6645754f9c10f2fccf59af7, type: 3}
 --- !u!1 &1035530549
@@ -5189,7 +5189,7 @@ GameObject:
   - component: {fileID: 1558308816}
   m_Layer: 8
   m_Name: ProtectedObject
-  m_TagString: Untagged
+  m_TagString: Hair
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5221,7 +5221,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c089decb40dae1438a2fcb77127b898, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
+  startingHealth: 100
 --- !u!135 &1558308817
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -7029,7 +7029,7 @@ GameObject:
   - component: {fileID: 1981152013}
   m_Layer: 3
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

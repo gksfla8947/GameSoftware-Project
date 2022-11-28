@@ -5,8 +5,8 @@ using System;
 
 public class LivingEntity : MonoBehaviour
 {
-    public float startingHealth = 100f; //시작 체력
-    public float health { get; protected set; } //현재 체력
+    public float health = 100f; //시작 체력
+    public float curHealth { get; protected set; } //현재 체력
     public bool dead { get; protected set; } //사망상태
     
     //생명체가 활성화될 때 상태를 리셋
@@ -15,16 +15,16 @@ public class LivingEntity : MonoBehaviour
         //사망하지 않은 상태로 시작
         dead = false;
         //체력 초기화
-        health = startingHealth;
+        curHealth = health;
     }
 
     // 대미지 입는 기능
     //OnDamage(대미지, 공격당한 위치, 공격당한 표면의 방향)
     public virtual void OnDamage(float damage, Vector3 hitPoint, Vector3 hitNormal)
     {
-        health -= damage;
+        curHealth -= damage;
 
-        if (health <= 0)
+        if (curHealth <= 0)
         {
             dead = true;
             Die();
@@ -39,11 +39,11 @@ public class LivingEntity : MonoBehaviour
             return;
         }
         Debug.Log("heal");
-        health += newHealth;
+        curHealth += newHealth;
 
-        if (health > startingHealth)
+        if (curHealth > health)
         {
-            health = startingHealth;
+            curHealth = health;
         }
     }
 

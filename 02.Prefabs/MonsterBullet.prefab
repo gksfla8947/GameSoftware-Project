@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3830037209622782059}
   - component: {fileID: 9115323844355623108}
   - component: {fileID: 4007914654014325035}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: MonsterBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -127,5 +127,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59e01005a38992d48b952e757f393c6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 300
   damage: 20
