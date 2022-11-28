@@ -5,7 +5,7 @@ using UnityEngine.AI;
 using System.Linq; //LINQ 사용
 
 
-public class MonsterCtrl : LivingEntity
+public class MeleeMonsterCtrl : LivingEntity
 {
     private GameObject Hair;
     private GameObject Player;
@@ -90,7 +90,7 @@ public class MonsterCtrl : LivingEntity
                 attack(targetEntity);
             }
             else //아니면 타겟을 향해 이동
-            { 
+            {
                 navMeshAgent.isStopped = false;
                 navMeshAgent.SetDestination(targetEntity.transform.position);
             }

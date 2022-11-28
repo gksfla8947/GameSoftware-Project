@@ -435,6 +435,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: dda24622485dd41628cc04a17381ed53, type: 2}
+    - target: {fileID: 13700002, guid: 385f7c15c2ac7dd4e9684c064cd1a34a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a0eb49000d5b0304ead584ea89cdaa14, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 385f7c15c2ac7dd4e9684c064cd1a34a, type: 3}
 --- !u!1 &4336771510228491713 stripped
@@ -456,25 +460,6 @@ CapsuleCollider:
   m_Height: 1.8407996
   m_Direction: 1
   m_Center: {x: 0, y: 0.42039979, z: 0}
---- !u!114 &211000460
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4336771510228491713}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b8518052c945234aadb83eaa2e8a976, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 100
-  damage: 20
-  timeBetAttack: 1
-  whatIstarget:
-    serializedVersion: 2
-    m_Bits: 256
-  targetName: hair
 --- !u!195 &211000461
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -497,3 +482,37 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &3175691246477509579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4336771510228491713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b8518052c945234aadb83eaa2e8a976, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
+  attackRange: 5
+  bulletPrefab: {fileID: 0}
+  damage: 20
+  timeBetAttack: 0.5
+--- !u!114 &6350928049114198302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4336771510228491713}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32ef74f3b5bd01a4dad4e63fd7ab676e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
+  attackRange: 5
+  bulletPrefab: {fileID: 0}
+  damage: 20
+  timeBetAttack: 0.5

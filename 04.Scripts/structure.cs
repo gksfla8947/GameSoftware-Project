@@ -19,15 +19,21 @@ public class structure : LivingEntity
     public override void OnDamage(float damage, Vector3 hitPoint, Vector3 hitNormal)
     {
         base.OnDamage(damage, hitPoint, hitNormal);
+
+        if (!dead)
+        {
+        }
     }
 
     public override void Die()
     {
-        base.Die();
-        Collider[] monsterColliders = GetComponents<Collider>();
-        for (int i = 0; i < monsterColliders.Length; i++)
+        //자신의 모든 콜라이더 비활성화
+        Collider[] mosterColliders = GetComponents<Collider>();
+        for (int i = 0; i < mosterColliders.Length; i++)
         {
-            monsterColliders[i].enabled = false;
+            mosterColliders[i].enabled = false;
         }
+
+        base.Die();
     }
 }
