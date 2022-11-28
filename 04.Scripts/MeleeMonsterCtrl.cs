@@ -141,37 +141,6 @@ public class MeleeMonsterCtrl : LivingEntity
         base.RestoreHealth(newHealth);
     }
 
-    //트리거 충돌한 상대방 게임 오브젝트가 추적 대상이라면 공격 실행
-    private void OnTriggerStay(Collider other)
-    {
-        // 상대방의 livingentity 가져옴
-        LivingEntity attackTarget = other.GetComponent<LivingEntity>();
-
-        //추적 대상이면
-        if (attackTarget != null && attackTarget == targetEntity)
-        {
-            navMeshAgent.isStopped = true;
-
-            //자신이 사망하지 않았고 공격 딜레이가 지났으면 공격
-            if (!dead && Time.time >= lastAttackTime + timeBetAttack)
-            {
-                lastAttackTime = Time.time;
-
-                //상대방의 피격 위치와 피격 방향을 근삿값으로 계산
-                Vector3 hitPoint = other.ClosestPoint(transform.position);
-                Vector3 hitnomal = transform.position - other.transform.position;
-
-                //공격 실행
-                attackTarget.OnDamage(damage, hitPoint, hitnomal);
-
-            }
-        }
-        if(attackTarget.dead)
-        {
-            return;
-        }
-    }
-
     private void attack(LivingEntity target)
     {
         //자신이 사망하지 않았고 공격 딜레이가 지났으면 공격

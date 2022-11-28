@@ -6,26 +6,28 @@ public class PlayerCtrl : LivingEntity
 {
     public float speed = 5.0f; 
     public float rotateSpeed = 10.0f;
-    public CharacterController characterController; 
     public Camera mainCamera; 
     public GameObject mousePointer;
 
     public float attackRate = 0.5f;
+    public float fasterAttackRate = 0.2f;
+    public float fasterAttackTime = 3f;
 
     public GameObject Bullet;
     public Transform FirePos;
+    public GameObject FireEffect;
 
     private Animator playerAnimator;
     private bool isIdle;
     private bool isAttack;
 
     Vector3 movePoint;
-    float curTime = 0f;
+    float attackCurTime = 0f;
+    float fasterAttackCurTime = 0f;
 
     void Start()
     {
         mainCamera = Camera.main;
-        characterController = GetComponent<CharacterController>();
         playerAnimator = GetComponent<Animator>();
         movePoint = transform.position;
         isIdle = true;
@@ -34,30 +36,25 @@ public class PlayerCtrl : LivingEntity
 
     void Update()
     {
-        if (Input.GetMouseButtonUp(1))
-        {
-            PointMousePos();
+        float hAxis = Input.GetAxisRaw("Horizontal");
+        float vAxis = Input.GetAxisRaw("Vertical");
+
+        Vector3 moveVec = new Vector3(hAxis, 0, vAxis).normalized;
+
+        Vector3 dir = moveVec;
+        Move(moveVec);
+        Attack(KeyCode.Mouse1);
+        if (isAttack) 
+        { 
+            dir = mousePointer.transform.position - transform.position; 
         }
-        if (Input.GetKeyDown("q"))
+        dir.y = 0f;
+        if(dir != Vector3.zero)
         {
-            isAttack = true;
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(dir.normalized), Time.deltaTime * rotateSpeed);
         }
-        if(Input.GetKey("q"))
-        {
-            if(curTime > attackRate)
-            {
-                BulletFire();
-                curTime = 0f;
-            }
-            curTime += Time.deltaTime;
-        }
-        if (Input.GetKeyUp("q"))
-        {
-            isAttack = false;
-        }
-        Move();
-        playerAnimator.SetBool("isIdle", isIdle);
-        playerAnimator.SetBool("isAttack", isAttack);
+
+        UpdatePlayerAnimation();
     }
 
     void PointMousePos()
@@ -69,19 +66,14 @@ public class PlayerCtrl : LivingEntity
             movePoint = raycastHit.point;
             mousePointer.transform.position = raycastHit.point;
         }
-        
     }
 
-    void Move()
+    void Move(Vector3 dir)
     {
-        if (Vector3.Distance(transform.position, movePoint) > 0.1f)
+        if(dir.magnitude != 0)
         {
             isIdle = false;
-            Vector3 thisUpdatePoint = (movePoint - transform.position).normalized * speed;
-            characterController.SimpleMove(thisUpdatePoint);
-            Vector3 dir = mousePointer.transform.position - transform.position;
-            dir.y = 0f;
-            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(dir.normalized), Time.deltaTime * rotateSpeed);
+            transform.position += dir * speed * Time.deltaTime;
         }
         else
         {
@@ -89,8 +81,56 @@ public class PlayerCtrl : LivingEntity
         }
     }
 
+    void Attack(KeyCode key)
+    {
+        if (Input.GetKeyDown(key))
+        {
+            isAttack = true;
+        }
+        if (Input.GetKey(key))
+        {
+            PointMousePos();
+            if(fasterAttackCurTime > fasterAttackTime)
+            {
+                if (attackCurTime > fasterAttackRate)
+                {
+                    BulletFire();
+                    attackCurTime = 0f;
+                }
+            }
+            if (attackCurTime > attackRate)
+            {
+                BulletFire();
+                attackCurTime = 0f;
+            }
+            attackCurTime += Time.deltaTime;
+        }
+        if (Input.GetKeyUp(key))
+        {
+            isAttack = false;
+        }
+    }
+    void UpdatePlayerAnimation()
+    {
+        playerAnimator.SetBool("isIdle", isIdle);
+        playerAnimator.SetBool("isAttack", isAttack);
+        if(isAttack && isIdle)
+        {
+            fasterAttackCurTime += Time.deltaTime;
+            playerAnimator.SetFloat("fasterShoot", fasterAttackCurTime);
+        }
+        else
+        {
+            fasterAttackCurTime = 0f;
+        }
+        if (dead)
+        {
+            playerAnimator.SetTrigger("DIe");
+        }
+    }
     void BulletFire()
     {
+        Instantiate(FireEffect, FirePos.transform.position, FirePos.transform.rotation);
         Instantiate(Bullet, FirePos.transform.position, FirePos.transform.rotation);
     }
 
