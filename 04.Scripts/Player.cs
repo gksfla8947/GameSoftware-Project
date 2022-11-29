@@ -2,18 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerCtrl : LivingEntity
+public class Player : LivingEntity
 {
     public float speed = 5.0f; 
     public float rotateSpeed = 10.0f;
     public Camera mainCamera; 
     public GameObject mousePointer;
 
+    public int atk = 20;
+
     public float attackRate = 0.5f;
     public float fasterAttackRate = 0.2f;
     public float fasterAttackTime = 3f;
 
-    public GameObject Bullet;
+    public GameObject BulletFactory;
     public Transform FirePos;
     public GameObject FireEffect;
 
@@ -25,13 +27,16 @@ public class PlayerCtrl : LivingEntity
     float attackCurTime = 0f;
     float fasterAttackCurTime = 0f;
 
-    void Start()
+    private void Awake()
     {
         mainCamera = Camera.main;
         playerAnimator = GetComponent<Animator>();
         movePoint = transform.position;
         isIdle = true;
         isAttack = false;
+    }
+    void Start()
+    {     
     }
 
     void Update()
@@ -125,13 +130,13 @@ public class PlayerCtrl : LivingEntity
         }
         if (dead)
         {
-            playerAnimator.SetTrigger("DIe");
+            playerAnimator.SetTrigger("Die");
         }
     }
     void BulletFire()
     {
         Instantiate(FireEffect, FirePos.transform.position, FirePos.transform.rotation);
-        Instantiate(Bullet, FirePos.transform.position, FirePos.transform.rotation);
+        Instantiate(BulletFactory, FirePos.transform.position, FirePos.transform.rotation);
     }
 
     public override void OnDamage(float damage, Vector3 hitPoint, Vector3 hitNormal)

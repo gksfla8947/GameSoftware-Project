@@ -17,7 +17,6 @@ public class UIManager : MonoBehaviour
     //public TextMeshProUGUI mpText;
     //public TextMeshProUGUI 
     public GameObject StartButton;
-    private int itemflag = 0;//itemUI swich
     // Start is called before the first frame update
     void Start()
     {
@@ -29,8 +28,8 @@ public class UIManager : MonoBehaviour
     {
         setScoreUI();
         setWaveUI();
-        setstate();
         setitemUI();
+        setState();
     }
 
     public void setScoreUI()
@@ -54,11 +53,10 @@ public class UIManager : MonoBehaviour
         else
         {
             waveText.text = "프리웨이브";
-            StartButton.SetActive(true);
         }
         
     }
-    public void setstate()
+    public void setState()
     {
         hpText.text = "HP : " + gm.hp;
         powerText.text = "power : " + gm.power;
@@ -66,17 +64,24 @@ public class UIManager : MonoBehaviour
     }
     public void setitemUI()
     {
-        if (gm.currentWave.isBattleWave)
+        if (!gm.currentWave.isBattleWave)
         {
-            itemflag=1;
+            ItemSelectUI.SetActive(true);
         }
         else
         {
-            if(itemflag == 1)
-            {
-                ItemSelectUI.SetActive(true);
-            }
-            itemflag=0;
+            ItemSelectUI.SetActive(false);
         }
+    }
+    public void GameStartOnClick()
+    {
+        gm.setIsGameStart(true);
+        StartButton.SetActive(false);
+    }
+
+    public void nextWaveOnClick()
+    {
+        gm.currentWave.isBattleWave = true;
+        ItemSelectUI.SetActive(false);
     }
 }

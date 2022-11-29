@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Unity.VisualScripting;
 
 public class LivingEntity : MonoBehaviour
 {
@@ -54,7 +55,7 @@ public class LivingEntity : MonoBehaviour
     //사망처리
     public virtual void Die()
     {
-        gameObject.SetActive(false);
+        Destroy(gameObject);
         Instantiate(dyingEffect, transform.position, transform.rotation);
     }
 
