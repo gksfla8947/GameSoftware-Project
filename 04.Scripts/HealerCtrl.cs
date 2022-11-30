@@ -124,11 +124,11 @@ public class HealerCtrl : LivingEntity
             mosterColliders[i].enabled = false;
         }
 
-        base.Die();
-
         //추적 중지, 내비메시 비활성화
         navMeshAgent.isStopped = true;
         navMeshAgent.enabled = false;
+
+        base.Die();
 
         //사망 애니메이션 재생
         //mosterAnimator.Settrigger("Die");

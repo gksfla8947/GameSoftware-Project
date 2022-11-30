@@ -57,7 +57,7 @@ public class MeleeMonsterCtrl : LivingEntity
     {
         Player = GameObject.FindGameObjectWithTag("Player");
         //Hair = GameObject.FindGameObjectWithTag("Hair");
-        Hair = GameObject.Find("Stage").transform.GetChild(3).gameObject;
+        Hair = GameObject.Find("Stage").transform.GetChild(1).gameObject;
         StartCoroutine(UpdatePath());
     }
 
