@@ -7,11 +7,9 @@ public class BulletAction : MonoBehaviour
     public float bulletSpeed = 20f;
     public float damage = 100f;
 
-    private GameManager gm;
 
     void Start()
     {
-        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
     void Update()
     {
@@ -21,8 +19,6 @@ public class BulletAction : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.name);
-
         if (other.gameObject.layer == LayerMask.NameToLayer("Monster"))
         {
             LivingEntity attackTarget = other.GetComponent<LivingEntity>();
@@ -34,10 +30,7 @@ public class BulletAction : MonoBehaviour
             //공격 실행
             attackTarget.OnDamage(damage, hitPoint, hitnomal);
 
-            if (gm.getIsWaveStart())
-            {
-                gm.setKillCount(gm.getKillCount() + 1);
-            }
+ 
             Destroy(gameObject);
         }
     }

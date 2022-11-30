@@ -4,15 +4,26 @@ using UnityEngine;
 
 public class Item : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private GameManager gm;
+    public float amount;
+    public string itemName;
+    private void Awake()
     {
-        
+        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        switch(itemName)
+        {
+            case "AttackRateUp":
+                AttackRateUp(amount);
+                break;
+        }
+    }
+
+    public void AttackRateUp(float amount)
+    {
+        gm.player.attackRate -= amount;
     }
 }
