@@ -11,31 +11,44 @@ public class GameManager : MonoBehaviour
     [HideInInspector] 
     public Wave currentWave;
 
-    private bool isWaveStart = false;
-    private int killCount = 0;
+    private bool isGameStart;
+    private bool isWaveStart;
+    private int killCount;
     public int hp = 100;
     public int power = 10;
     public int speed = 5;
+
+    public Player player;
     // Start is called before the first frame update
     void Start()
     {
+        isGameStart = false;
+        isWaveStart = false;
+        killCount = 0;
+        player = GetComponent<Player>();
         currentWave = waves[currentWaveNum].GetComponent<Wave>();
-        StartCurrentWave();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(currentWaveNum < waves.Length)
+        if (isGameStart)
         {
-            currentWave = waves[currentWaveNum].GetComponent<Wave>();
-            if (!isWaveStart)
+            if (currentWaveNum < waves.Length)
             {
-                StartCurrentWave();
+                currentWave = waves[currentWaveNum].GetComponent<Wave>();
+                if (!isWaveStart)
+                {
+                    StartCurrentWave();
+                }
             }
-        }
+        }     
     }
 
+    public void setIsGameStart(bool t)
+    {
+        isGameStart = t;
+    }
     public void StartCurrentWave()
     {
         currentWave.gameObject.SetActive(true);

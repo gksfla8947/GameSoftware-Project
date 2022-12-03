@@ -23,8 +23,8 @@ public class Wave : MonoBehaviour
 
     protected virtual void EndWave()
     {
-        gm.addCurrentWaveNum();
         gm.setIsWaveStart(false);
+        gm.addCurrentWaveNum();
         gameObject.SetActive(false);
     }
 }

@@ -314,14 +314,14 @@ namespace SplineMesh {
                 bentVertices.Add(sample.GetBent(vert));
             }
 
-/*            MeshUtility.Update(result, )
+            MeshUtility.Update(result,
                 source.Mesh,
                 source.Triangles,
                 bentVertices.Select(b => b.position),
                 bentVertices.Select(b => b.normal));
             if (TryGetComponent(out MeshCollider collider)) {
                 collider.sharedMesh = result;
-            }*/
+            }
         }
     }
 }

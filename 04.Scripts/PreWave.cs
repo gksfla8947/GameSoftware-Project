@@ -28,10 +28,12 @@ public class PreWave : Wave
     protected override void StartWave()
     {
         base.StartWave();
+        Time.timeScale = 0;
     }
 
     protected override void EndWave()
     {
+        Time.timeScale = 1;
         base.EndWave();
     }
 }

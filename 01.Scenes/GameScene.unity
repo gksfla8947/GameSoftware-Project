@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -650,12 +650,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waves:
-  - {fileID: 2031134833}
   - {fileID: 1951091194}
-  - {fileID: 399336134}
+  - {fileID: 2031134833}
   - {fileID: 1272745169}
-  - {fileID: 1787559726}
+  - {fileID: 399336134}
   - {fileID: 2044867052}
+  - {fileID: 1787559726}
   currentWave: {fileID: 0}
   hp: 100
   power: 10
@@ -673,8 +673,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2031134834}
   - {fileID: 1951091193}
+  - {fileID: 2031134834}
   - {fileID: 1272745168}
   - {fileID: 399336135}
   - {fileID: 2044867051}
@@ -1904,7 +1904,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1350176493}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: waveStartOnClick
+        m_MethodName: GameStartOnClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3167,9 +3167,9 @@ Transform:
   m_Children:
   - {fileID: 1182015776}
   - {fileID: 1393574449}
-  - {fileID: 1972076323}
   - {fileID: 1558308815}
   - {fileID: 1020846865}
+  - {fileID: 1972076323}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 45, z: 0}
@@ -3570,7 +3570,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &1020846865
 Transform:
@@ -3585,7 +3585,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 902403723}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!64 &1020846866
 MeshCollider:
@@ -4088,7 +4088,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1106284225
 Transform:
   m_ObjectHideFlags: 0
@@ -4614,6 +4614,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: ItemManager, Assembly-CSharp
         m_MethodName: ActiveItem
         m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1350176493}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: nextWaveOnClick
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -5338,7 +5350,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 902403723}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1558308816
 MonoBehaviour:
@@ -5363,7 +5375,7 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1558308814}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
@@ -6929,7 +6941,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 161153409}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1951091194
 MonoBehaviour:
@@ -7053,7 +7065,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 902403723}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1981152006
 GameObject:
@@ -7067,6 +7079,7 @@ GameObject:
   - component: {fileID: 1981152008}
   - component: {fileID: 1981152013}
   - component: {fileID: 1981152015}
+  - component: {fileID: 1981152017}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -7082,7 +7095,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1981152006}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
   m_Height: 2
@@ -7120,7 +7133,7 @@ MonoBehaviour:
   health: 100
   hitEffect: {fileID: 1995403933065894, guid: 4961a16ba01e09547be3e1c9d16d5ad0, type: 3}
   dyingEffect: {fileID: 2433282508537954060, guid: 3ef3ae421f71c5c4e97fe12dc2fc6312, type: 3}
-  speed: 5
+  speed: 10
   rotateSpeed: 10
   mainCamera: {fileID: 963194227}
   mousePointer: {fileID: 739657667}
@@ -7151,6 +7164,24 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!143 &1981152017
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1981152006}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2025401533
 GameObject:
   m_ObjectHideFlags: 0
@@ -7329,7 +7360,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 161153409}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2036132970
 GameObject:

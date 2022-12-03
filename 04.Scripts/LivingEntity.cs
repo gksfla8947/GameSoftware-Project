@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Unity.VisualScripting;
 
 public class LivingEntity : MonoBehaviour
 {
@@ -9,7 +10,9 @@ public class LivingEntity : MonoBehaviour
     public float curHealth { get; protected set; } //현재 체력
     public bool dead { get; protected set; } //사망상태
 
-    
+    public GameObject hitEffect;
+    public GameObject dyingEffect;
+
     //생명체가 활성화될 때 상태를 리셋
     protected virtual void OnEnable()
     {
@@ -23,13 +26,14 @@ public class LivingEntity : MonoBehaviour
     //OnDamage(대미지, 공격당한 위치, 공격당한 표면의 방향)
     public virtual void OnDamage(float damage, Vector3 hitPoint, Vector3 hitNormal)
     {
-        health -= damage;
+        curHealth -= damage;
 
-        if (health <= 0 && !dead)
+        if (curHealth <= 0)
         {
             dead = true;
             Die();
         }
+        Instantiate(hitEffect, hitPoint, transform.rotation);
     }
 
     //체력 회복
@@ -39,20 +43,27 @@ public class LivingEntity : MonoBehaviour
         {
             return;
         }
-        health += newHealth;
+        Debug.Log("heal");
+        curHealth += newHealth;
+
+        if (curHealth > health)
+        {
+            curHealth = health;
+        }
     }
 
     //사망처리
     public virtual void Die()
     {
-        gameObject.SetActive(false);
+        Destroy(gameObject);
+        Instantiate(dyingEffect, transform.position, transform.rotation);
     }
 
 
     // Start is called before the first frame update
     void Start()
     {
-        curHealth = health;
+        // health = startingHealth;
     }
 
     // Update is called once per frame
