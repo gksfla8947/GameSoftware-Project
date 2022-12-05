@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PreWave : Wave
 {
+    public Item[] items;
 
     protected override void Awake()
     {
@@ -28,11 +29,15 @@ public class PreWave : Wave
     protected override void StartWave()
     {
         base.StartWave();
+        ItemManager.instance.SelectItems();
+        ItemManager.instance.InstantiateItems();
         Time.timeScale = 0;
     }
 
     protected override void EndWave()
     {
+        ItemManager.instance.ClearItems();
+        preWaveNum += 1;
         Time.timeScale = 1;
         base.EndWave();
     }

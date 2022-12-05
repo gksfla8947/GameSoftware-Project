@@ -21,7 +21,7 @@ public class BattleWave : Wave
     // Update is called once per frame
     void Update()
     {
-        if (gm.getKillCount() == winToKillNum)
+        if (GameManager.instance.KillCount == winToKillNum)
         {
             EndWave();
         }
@@ -37,7 +37,7 @@ public class BattleWave : Wave
 
     protected override void EndWave()
     {
-        gm.setKillCount(0);
+        GameManager.instance.KillCount = 0;
         battleWaveNum += 1;
         foreach (monsterSpawner spawner in spawners)
         {

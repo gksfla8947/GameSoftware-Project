@@ -5,11 +5,13 @@ using UnityEngine;
 public class BulletAction : MonoBehaviour
 {
     public float bulletSpeed = 20f;
-    public float damage = 100f;
+    private float damage = 20f;
+
 
 
     void Start()
     {
+        damage = GameManager.instance.player.atk;
     }
     void Update()
     {
