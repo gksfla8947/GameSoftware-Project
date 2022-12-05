@@ -8,25 +8,7 @@ AnimatorController:
   m_PrefabAsset: {fileID: 0}
   m_Name: FantasyBeeAnim
   serializedVersion: 5
-  m_AnimatorParameters:
-  - m_Name: Work
-    m_Type: 4
-    m_DefaultFloat: 0
-    m_DefaultInt: 0
-    m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
-  - m_Name: Hit
-    m_Type: 4
-    m_DefaultFloat: 0
-    m_DefaultInt: 0
-    m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
-  - m_Name: Damage
-    m_Type: 4
-    m_DefaultFloat: 0
-    m_DefaultInt: 0
-    m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+  m_AnimatorParameters: []
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -99,7 +81,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Attack
+  m_Name: Hit
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -125,7 +107,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Move
+  m_Name: Work
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -158,7 +140,7 @@ AnimatorStateMachine:
     m_Position: {x: 252, y: 192, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102175640897290340}
-    m_Position: {x: 252, y: 12, z: 0}
+    m_Position: {x: 140, y: -60, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102693825296301398}
     m_Position: {x: 252, y: 72, z: 0}

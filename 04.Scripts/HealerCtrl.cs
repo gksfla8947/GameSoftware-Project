@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using System.Linq; //LINQ 사용
-
 
 public class HealerCtrl : LivingEntity
 {
@@ -26,8 +24,6 @@ public class HealerCtrl : LivingEntity
     public float recoveryAmount = 1; //힐량
 
 
-    //public AudioClip deathSound;//사망시 재생할 소리
-    //public AudioClip hitSound;//피격시 재생할 소리
 
     private Animator monsterAnimator;//애니메이터 컴포넌트
     //private AudioSource monsterAudioPlayer;//오디오 소스 컴포넌트
@@ -43,8 +39,7 @@ public class HealerCtrl : LivingEntity
     {
         // 게임 오브젝트로부터 사용할 컴포넌트 가져오기
         navMeshAgent = GetComponent<NavMeshAgent>();
-        //monsterAnimator = GetComponent<Animator>();  애니메이터, 지금 없음
-        //monsterAudioPlayer = GetComponent<AudioSource>();   오디오 플레이어, 지금 없음
+        monsterAnimator = GetComponent<Animator>();
 
         //렌더러 컴포넌트는 자식 오브젝트에 있으므로 GetComponentInChildren 사용
         monsterRenderer = GetComponentInChildren<Renderer>();
@@ -63,13 +58,13 @@ public class HealerCtrl : LivingEntity
     // Update is called once per frame
     void Update()
     {
-        //추적 대상의 존재 여부에 따라 다른 애니메이션 재생
-        //monsterAnimator.SetBool("HasTarget", hasTarget);
     }
     private IEnumerator UpdatePath()
     {
         while (!dead)
         {
+            monsterAnimator.CrossFade("Walk", 0f);
+
             DistHair = Vector3.Distance(transform.position, Hair.transform.position);
             DistPlayer = Vector3.Distance(transform.position, Player.transform.position);
 
@@ -95,16 +90,13 @@ public class HealerCtrl : LivingEntity
                 navMeshAgent.SetDestination(targetEntity.transform.position);
             }
 
-            yield return new WaitForSeconds(0.25f);
+            yield return new WaitForSeconds(0.5f);
         }
     }
 
     public override void OnDamage(float damage, Vector3 hitPoint, Vector3 hitNormal)
     {
-        if (!dead)
-        {
-            //mosterAudioPlayer.PlayOneShot(hitSound); //피격 효과음 재생
-        }
+        monsterAnimator.CrossFade("Damage", 0f);
 
         base.OnDamage(damage, hitPoint, hitNormal);
     }
@@ -122,8 +114,6 @@ public class HealerCtrl : LivingEntity
         navMeshAgent.isStopped = true;
         navMeshAgent.enabled = false;
 
-        //사망 효과음 재생
-        //mosterAudioPlayer.PlayOneShot(deathSound);
 
         base.Die();
 
@@ -135,6 +125,7 @@ public class HealerCtrl : LivingEntity
 
     private void heal()
     {
+        monsterAnimator.CrossFade("Heal", 0f);
         //자신이 사망하지 않았고 공격 딜레이가 지났으면 공격
         if (!dead && Time.time >= lastAttackTime + timeBetAttack)
         {

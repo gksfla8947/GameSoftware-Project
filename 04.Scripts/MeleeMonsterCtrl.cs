@@ -33,10 +33,6 @@ public class MeleeMonsterCtrl : LivingEntity
     private float lastAttackTime;//마지막 공격 시점
 
 
-    private bool Work;
-    private bool Hit;
-    private bool Damage;
-
     private void Awake()
     {
         // 게임 오브젝트로부터 사용할 컴포넌트 가져오기
@@ -59,13 +55,13 @@ public class MeleeMonsterCtrl : LivingEntity
     // Update is called once per frame
     void Update()
     {
-        //추적 대상의 존재 여부에 따라 다른 애니메이션 재생
-        //monsterAnimator.SetBool("HasTarget", hasTarget);
+        
     }
     private IEnumerator UpdatePath()
     {
         while (!dead)
         {
+            monsterAnimator.CrossFade("Walk", 0f);
 
             DistHair = Vector3.Distance(transform.position, Hair.transform.position);
             DistPlayer = Vector3.Distance(transform.position, Player.transform.position);
@@ -91,12 +87,14 @@ public class MeleeMonsterCtrl : LivingEntity
                 navMeshAgent.SetDestination(targetEntity.transform.position);
             }
 
-            yield return new WaitForSeconds(0.25f);
+            yield return new WaitForSeconds(0.5f);
         }
     }
 
     public override void OnDamage(float damage, Vector3 hitPoint, Vector3 hitNormal)
     {
+        monsterAnimator.CrossFade("Damage", 0f);
+
         base.OnDamage(damage, hitPoint, hitNormal);
     }
 
@@ -127,6 +125,7 @@ public class MeleeMonsterCtrl : LivingEntity
 
     private void attack(LivingEntity target)
     {
+        monsterAnimator.CrossFade("Hit", 0f);
         //자신이 사망하지 않았고 공격 딜레이가 지났으면 공격
         if (!dead && Time.time >= lastAttackTime + timeBetAttack)
         {
@@ -141,11 +140,5 @@ public class MeleeMonsterCtrl : LivingEntity
             MeleeAttack temp = bullet.GetComponent<MeleeAttack>();
             temp.damage = damage;
         }
-    }
-    void UpdateMonsterAnimation()
-    {
-        monsterAnimator.SetBool("Work", Work);
-        monsterAnimator.SetBool("Hit", Hit);
-        monsterAnimator.SetBool("Damage", Damage);
     }
 }
