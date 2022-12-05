@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using System.Linq; //LINQ 사용
+using UnityEngine.UI;
 
 
 public class MeleeMonsterCtrl : LivingEntity
 {
     private GameObject Hair;
     private GameObject Player;
+    public Slider HP_slider;//민
 
     private float DistHair; //머리카락과의 거리
     private float DistPlayer; //플레이어와의 거리
     private float DistTarget; //타겟과의 거리
-
 
     public float attackRange = 5; //공격 사정거리
     public GameObject bulletPrefab;
@@ -57,6 +58,7 @@ public class MeleeMonsterCtrl : LivingEntity
         //Hair = GameObject.FindGameObjectWithTag("Hair");
         Hair = GameObject.Find("Stage").transform.GetChild(3).gameObject;
         StartCoroutine(UpdatePath());
+        HP_slider = GetComponentInChildren<Slider>();//민
     }
 
     // Update is called once per frame
@@ -64,6 +66,7 @@ public class MeleeMonsterCtrl : LivingEntity
     {
         //추적 대상의 존재 여부에 따라 다른 애니메이션 재생
         //monsterAnimator.SetBool("HasTarget", hasTarget);
+        HP_slider.value = curHealth / health;//민
     }
     private IEnumerator UpdatePath()
     {

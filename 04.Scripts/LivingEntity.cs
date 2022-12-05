@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using Unity.VisualScripting;
+//using UnityEngine.UI;//민
 
 public class LivingEntity : MonoBehaviour
 {
+    //Image hpBarImage;//민
     public float health = 100f; //시작 체력
-    [HideInInspector]
+    //[HideInInspector]
     public float curHealth; //현재 체력
     public bool dead { get; protected set; } //사망상태
 
@@ -65,10 +67,12 @@ public class LivingEntity : MonoBehaviour
     void Start()
     {
         // health = startingHealth;
+        //hpBarImage = GetComponentInChildren<Image>();//민
     }
 
     // Update is called once per frame
     void Update()
     {
+        //hpBarImage.fillAmount = curHealth / health;//민
     }
 }
