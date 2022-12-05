@@ -5,12 +5,10 @@ using UnityEngine;
 public class PreWave : Wave
 {
     public Item[] items;
-    private ItemManager im;
 
     protected override void Awake()
     {
         base.Awake();
-        im = GameObject.Find("ItemManager").GetComponent<ItemManager>();
         isBattleWave = false;
     }
     // Start is called before the first frame update
@@ -31,14 +29,14 @@ public class PreWave : Wave
     protected override void StartWave()
     {
         base.StartWave();
-        im.SelectItems();
-        im.InstantiateItems();
+        ItemManager.instance.SelectItems();
+        ItemManager.instance.InstantiateItems();
         Time.timeScale = 0;
     }
 
     protected override void EndWave()
     {
-        im.ClearItems();
+        ItemManager.instance.ClearItems();
         preWaveNum += 1;
         Time.timeScale = 1;
         base.EndWave();
