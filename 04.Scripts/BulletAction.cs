@@ -28,7 +28,10 @@ public class BulletAction : MonoBehaviour
             Vector3 hitnomal = transform.position - other.transform.position;
 
             //공격 실행
-            attackTarget.OnDamage(damage, hitPoint, hitnomal);
+            if (attackTarget != null)
+            {
+                attackTarget.OnDamage(damage, hitPoint, hitnomal);
+            }
 
  
             Destroy(gameObject);

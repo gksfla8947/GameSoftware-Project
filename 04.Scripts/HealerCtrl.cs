@@ -26,13 +26,12 @@ public class HealerCtrl : LivingEntity
     public float recoveryAmount = 1; //힐량
 
 
-    //public ParticleSystem hitEffect;//피격시 재생할 파티클
     //public AudioClip deathSound;//사망시 재생할 소리
     //public AudioClip hitSound;//피격시 재생할 소리
 
-    //private Animator mosterAnimator;//애니메이터 컴포넌트
+    private Animator monsterAnimator;//애니메이터 컴포넌트
     //private AudioSource monsterAudioPlayer;//오디오 소스 컴포넌트
-    private Renderer mosterRenderer;//렌더러 컴포넌트
+    private Renderer monsterRenderer;//렌더러 컴포넌트
 
     public float damage = 20f;//공격력
     public float timeBetAttack = 0.5f;//공격 간격
@@ -48,7 +47,7 @@ public class HealerCtrl : LivingEntity
         //monsterAudioPlayer = GetComponent<AudioSource>();   오디오 플레이어, 지금 없음
 
         //렌더러 컴포넌트는 자식 오브젝트에 있으므로 GetComponentInChildren 사용
-        mosterRenderer = GetComponentInChildren<Renderer>();
+        monsterRenderer = GetComponentInChildren<Renderer>();
         Monster = LayerMask.GetMask("Monster");
     }
 
@@ -104,11 +103,6 @@ public class HealerCtrl : LivingEntity
     {
         if (!dead)
         {
-            //공격받은 지점과 방향으로 파티클 효과 재생
-            //hitEffect.transform.position = hitPoint;
-            //hitEffect.transform.rotation = Quaternion.LookRotation(hitNormal);
-            //hitEffect.PLay();
-
             //mosterAudioPlayer.PlayOneShot(hitSound); //피격 효과음 재생
         }
 
@@ -128,12 +122,10 @@ public class HealerCtrl : LivingEntity
         navMeshAgent.isStopped = true;
         navMeshAgent.enabled = false;
 
-        base.Die();
-
-        //사망 애니메이션 재생
-        //mosterAnimator.Settrigger("Die");
         //사망 효과음 재생
         //mosterAudioPlayer.PlayOneShot(deathSound);
+
+        base.Die();
 
     }
     public override void RestoreHealth(float newHealth)
@@ -154,7 +146,7 @@ public class HealerCtrl : LivingEntity
             {
                 LivingEntity monster = colliders[i].GetComponent<LivingEntity>();
                 
-                if (monster.gameObject.layer == 6 && monster != null && !monster.dead)
+                if (monster != null && monster.gameObject.layer == 6 && !monster.dead)
                 {
                     monster.GetComponent<LivingEntity>().RestoreHealth(recoveryAmount);
                 }

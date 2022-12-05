@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using System.Linq; //LINQ 사용
 
 
 public class MeleeMonsterCtrl : LivingEntity
@@ -18,18 +17,14 @@ public class MeleeMonsterCtrl : LivingEntity
     public float attackRange = 5; //공격 사정거리
     public GameObject bulletPrefab;
 
-    //public LayerMask whatIstarget; //추적 대상 레이어 필요 없어짐
 
     private LivingEntity targetEntity;//추적 대상
     private NavMeshAgent navMeshAgent;//경로 계산 AI
 
-    //List<Target> targets = new List<Target>(); 필요 없어짐
-
-    //public ParticleSystem hitEffect;//피격시 재생할 파티클
     //public AudioClip deathSound;//사망시 재생할 소리
     //public AudioClip hitSound;//피격시 재생할 소리
 
-    //private Animator mosterAnimator;//애니메이터 컴포넌트
+    private Animator monsterAnimator;//애니메이터 컴포넌트
     //private AudioSource monsterAudioPlayer;//오디오 소스 컴포넌트
     private Renderer mosterRenderer;//렌더러 컴포넌트
 
@@ -39,16 +34,19 @@ public class MeleeMonsterCtrl : LivingEntity
 
     private GameManager gm;
 
+    private bool Work;
+    private bool Hit;
+    private bool Damage;
+
     private void Awake()
     {
         // 게임 오브젝트로부터 사용할 컴포넌트 가져오기
         navMeshAgent = GetComponent<NavMeshAgent>();
-        //monsterAnimator = GetComponent<Animator>();  애니메이터, 지금 없음
+        monsterAnimator = GetComponent<Animator>();
         //monsterAudioPlayer = GetComponent<AudioSource>();   오디오 플레이어, 지금 없음
 
         //렌더러 컴포넌트는 자식 오브젝트에 있으므로 GetComponentInChildren 사용
         mosterRenderer = GetComponentInChildren<Renderer>();
-        // whatIstarget = LayerMask.GetMask("Target"); 필요 없어짐
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
@@ -56,8 +54,7 @@ public class MeleeMonsterCtrl : LivingEntity
     private void Start()
     {
         Player = GameObject.FindGameObjectWithTag("Player");
-        //Hair = GameObject.FindGameObjectWithTag("Hair");
-        Hair = GameObject.Find("Stage").transform.GetChild(1).gameObject;
+        Hair = GameObject.FindGameObjectWithTag("Hair");
         StartCoroutine(UpdatePath());
     }
 
@@ -102,16 +99,6 @@ public class MeleeMonsterCtrl : LivingEntity
 
     public override void OnDamage(float damage, Vector3 hitPoint, Vector3 hitNormal)
     {
-        if (!dead)
-        {
-            //공격받은 지점과 방향으로 파티클 효과 재생
-            //hitEffect.transform.position = hitPoint;
-            //hitEffect.transform.rotation = Quaternion.LookRotation(hitNormal);
-            //hitEffect.PLay();
-
-            //mosterAudioPlayer.PlayOneShot(hitSound); //피격 효과음 재생
-        }
-
         base.OnDamage(damage, hitPoint, hitNormal);
     }
 
@@ -130,12 +117,8 @@ public class MeleeMonsterCtrl : LivingEntity
         //추적 중지, 내비메시 비활성화
         navMeshAgent.isStopped = true;
         navMeshAgent.enabled = false;
-        base.Die();
 
-        //사망 애니메이션 재생
-        //mosterAnimator.Settrigger("Die");
-        //사망 효과음 재생
-        //mosterAudioPlayer.PlayOneShot(deathSound);
+        base.Die();
 
     }
 
@@ -157,6 +140,14 @@ public class MeleeMonsterCtrl : LivingEntity
             GameObject bullet = Instantiate(bulletPrefab, curPos, Quaternion.identity);
             bullet.transform.LookAt(targetEntity.transform);
 
+            MeleeAttack temp = bullet.GetComponent<MeleeAttack>();
+            temp.damage = damage;
         }
+    }
+    void UpdateMonsterAnimation()
+    {
+        monsterAnimator.SetBool("Work", Work);
+        monsterAnimator.SetBool("Hit", Hit);
+        monsterAnimator.SetBool("Damage", Damage);
     }
 }

@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    private float speed = 300f;
+    private float speed = 600f;
     private Rigidbody bulletRigidbody;
 
-    public float damage = 20f;
-
+    public float damage { get; set; }
     private void Awake()
     {
         bulletRigidbody = GetComponent<Rigidbody>();
@@ -20,13 +19,9 @@ public class Bullet : MonoBehaviour
     {
         bulletRigidbody.velocity = transform.forward * speed * Time.deltaTime;
 
-        Destroy(gameObject, 2f); //2초 뒤 자동 파괴
+        Destroy(gameObject, 5f); //5초 뒤 자동 파괴
     }
 
-    private void FixedUpdate()
-    {
-
-    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -39,8 +34,10 @@ public class Bullet : MonoBehaviour
             Vector3 hitnomal = transform.position - other.transform.position;
 
             //공격 실행
-            attackTarget.OnDamage(damage, hitPoint, hitnomal);
-
+            if (attackTarget != null)
+            {
+                attackTarget.OnDamage(damage, hitPoint, hitnomal);
+            }
             Destroy(gameObject);
         }
     }

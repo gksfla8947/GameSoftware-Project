@@ -18,18 +18,13 @@ public class MonsterCtrl : LivingEntity
     public float attackRange = 5; //공격 사정거리
     public GameObject bulletPrefab;
 
-    //public LayerMask whatIstarget; //추적 대상 레이어 필요 없어짐
-
     private LivingEntity targetEntity;//추적 대상
     private NavMeshAgent navMeshAgent;//경로 계산 AI
 
-    //List<Target> targets = new List<Target>(); 필요 없어짐
-
-    //public ParticleSystem hitEffect;//피격시 재생할 파티클
     //public AudioClip deathSound;//사망시 재생할 소리
     //public AudioClip hitSound;//피격시 재생할 소리
 
-    //private Animator mosterAnimator;//애니메이터 컴포넌트
+    private Animator monsterAnimator;//애니메이터 컴포넌트
     //private AudioSource monsterAudioPlayer;//오디오 소스 컴포넌트
     private Renderer mosterRenderer;//렌더러 컴포넌트
 
@@ -43,19 +38,18 @@ public class MonsterCtrl : LivingEntity
     {
         // 게임 오브젝트로부터 사용할 컴포넌트 가져오기
         navMeshAgent = GetComponent<NavMeshAgent>();
-        //monsterAnimator = GetComponent<Animator>();  애니메이터, 지금 없음
+        monsterAnimator = GetComponent<Animator>();
         //monsterAudioPlayer = GetComponent<AudioSource>();   오디오 플레이어, 지금 없음
 
         //렌더러 컴포넌트는 자식 오브젝트에 있으므로 GetComponentInChildren 사용
         mosterRenderer = GetComponentInChildren<Renderer>();
-        // whatIstarget = LayerMask.GetMask("Target"); 필요 없어짐
     }
 
     // Start is called before the first frame update
     private void Start()
     {
         Player = GameObject.FindGameObjectWithTag("Player");
-        Hair = GameObject.Find("Stage").transform.GetChild(1).gameObject;
+        Hair = GameObject.FindGameObjectWithTag("Hair");
         StartCoroutine(UpdatePath());
     }
 
@@ -126,12 +120,12 @@ public class MonsterCtrl : LivingEntity
         navMeshAgent.isStopped = true;
         navMeshAgent.enabled = false;
 
-        base.Die();
-
         //사망 애니메이션 재생
-        //mosterAnimator.Settrigger("Die");
+        monsterAnimator.SetTrigger("Die");
         //사망 효과음 재생
         //mosterAudioPlayer.PlayOneShot(deathSound);
+
+        base.Die();
 
     }
 
@@ -147,11 +141,13 @@ public class MonsterCtrl : LivingEntity
         {
             lastAttackTime = Time.time;
 
-            // GameObject bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
             Vector3 curPos = transform.position;
             curPos.y += 1f;
             GameObject bullet = Instantiate(bulletPrefab, curPos, Quaternion.identity);
+            
             bullet.transform.LookAt(targetEntity.transform);
+            Bullet temp = bullet.GetComponent<Bullet>();
+            temp.damage = damage;
 
         }
     }

@@ -6,7 +6,7 @@ public class MeleeAttack : MonoBehaviour
 {
 
     public Rigidbody meleeAttackRigidbody;
-    public float damage = 20f;
+    public float damage { get; set; }
 
     // Start is called before the first frame update
     private void Awake()
@@ -30,8 +30,10 @@ public class MeleeAttack : MonoBehaviour
             Vector3 hitnomal = transform.position - other.transform.position;
 
             //공격 실행
-            attackTarget.OnDamage(damage, hitPoint, hitnomal);
-
+            if (attackTarget != null)
+            {
+                attackTarget.OnDamage(damage, hitPoint, hitnomal);
+            }
             Destroy(gameObject);
         }
     }
