@@ -1,30 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Analytics;
 
 public class Wave : MonoBehaviour
 {
-    protected GameManager gm;
     [HideInInspector]
     public bool isBattleWave;
     [HideInInspector]
     static public int battleWaveNum = 1;
+    static public int preWaveNum = 1;
+
 
     protected virtual void Awake()
     {
         gameObject.SetActive(false);
-        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     protected virtual void StartWave()
     {
-        gm.setIsWaveStart(true);
+        GameManager.instance.IsWaveStart = true;
     }
 
     protected virtual void EndWave()
     {
-        gm.setIsWaveStart(false);
-        gm.addCurrentWaveNum();
+        GameManager.instance.IsWaveStart = false;
+        GameManager.instance.CurrentWaveNum += 1;
         gameObject.SetActive(false);
     }
 }

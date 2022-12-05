@@ -4,26 +4,70 @@ using UnityEngine;
 
 public class Item : MonoBehaviour
 {
-    private GameManager gm;
     public float amount;
     public string itemName;
-    private void Awake()
-    {
-        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
-    }
+    public bool isActiveItem;
 
-    private void Start()
+    public void ApplyItem()
     {
-        switch(itemName)
+        switch (itemName)
         {
             case "AttackRateUp":
                 AttackRateUp(amount);
                 break;
+            case "AttackDamageUp":
+                AttackDamageUp(amount);
+                break;
+            case "SpeedUp":
+                SpeedUp(amount);
+                break;
+            case "HealthUp":
+                HealthUp(amount);
+                break;
+            case "RestoreHealth":
+                RestoreHealth(amount);
+                break;
+            case "ElimateAllEnemy":
+                ElimateAllEnemy();
+                break;
+            case "SuperAttackRateUp":
+                SuperAttackRateUp(amount);
+                break;
+
         }
     }
 
     public void AttackRateUp(float amount)
     {
-        gm.player.attackRate -= amount;
+        GameManager.instance.player.attackRate -= amount;
+    }
+
+    public void AttackDamageUp(float amount)
+    {
+        GameManager.instance.player.atk += (int)amount;
+    }
+
+    public void SpeedUp(float amount)
+    {
+        GameManager.instance.player.speed += amount;
+    }
+
+    public void HealthUp(float mount)
+    {
+        GameManager.instance.player.health += amount;
+    }
+
+    public void RestoreHealth(float amount)
+    {
+    }
+
+    public void ElimateAllEnemy()
+    {
+        Debug.Log("Active Item");
+    }
+
+    public void SuperAttackRateUp(float amount)
+    {
+
     }
 }
