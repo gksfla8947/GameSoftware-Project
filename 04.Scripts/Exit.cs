@@ -8,7 +8,6 @@ public class Exit : MonoBehaviour
     public void onClickExit()
     {
         Application.Quit();
-        Debug.Log("work");
     }
 
 }
