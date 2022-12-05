@@ -37,7 +37,6 @@ public class MeleeMonsterCtrl : LivingEntity
     public float timeBetAttack = 0.5f;//공격 간격
     private float lastAttackTime;//마지막 공격 시점
 
-    private GameManager gm;
 
     private void Awake()
     {
@@ -49,7 +48,6 @@ public class MeleeMonsterCtrl : LivingEntity
         //렌더러 컴포넌트는 자식 오브젝트에 있으므로 GetComponentInChildren 사용
         mosterRenderer = GetComponentInChildren<Renderer>();
         // whatIstarget = LayerMask.GetMask("Target"); 필요 없어짐
-        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     // Start is called before the first frame update
@@ -123,9 +121,9 @@ public class MeleeMonsterCtrl : LivingEntity
         {
             mosterColliders[i].enabled = false;
         }
-        if (gm.getIsWaveStart())
+        if (GameManager.instance.IsWaveStart)
         {
-            gm.setKillCount(gm.getKillCount() + 1);
+            GameManager.instance.KillCount = GameManager.instance.KillCount + 1;
         }
         //추적 중지, 내비메시 비활성화
         navMeshAgent.isStopped = true;

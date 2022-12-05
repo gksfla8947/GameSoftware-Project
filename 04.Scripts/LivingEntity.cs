@@ -7,7 +7,8 @@ using Unity.VisualScripting;
 public class LivingEntity : MonoBehaviour
 {
     public float health = 100f; //시작 체력
-    public float curHealth { get; protected set; } //현재 체력
+    [HideInInspector]
+    public float curHealth; //현재 체력
     public bool dead { get; protected set; } //사망상태
 
     public GameObject hitEffect;
