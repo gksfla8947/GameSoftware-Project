@@ -8,6 +8,8 @@ public class Item : MonoBehaviour
     public string itemName;
     public bool isActiveItem;
 
+    public string description;
+
     public void ApplyItem()
     {
         switch (itemName)
