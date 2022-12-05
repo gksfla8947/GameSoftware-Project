@@ -10,7 +10,7 @@ public class MeleeMonsterCtrl : LivingEntity
 {
     private GameObject Hair;
     private GameObject Player;
-    public Slider HP_slider;//민
+    private Slider HP_slider;//민
 
     private float DistHair; //머리카락과의 거리
     private float DistPlayer; //플레이어와의 거리
@@ -66,8 +66,15 @@ public class MeleeMonsterCtrl : LivingEntity
     {
         //추적 대상의 존재 여부에 따라 다른 애니메이션 재생
         //monsterAnimator.SetBool("HasTarget", hasTarget);
-        HP_slider.value = curHealth / health;//민
+        HP_slider.value = curHealth / health;//민    
     }
+/*    private void FixedUpdate()
+    {
+        HP_slider.transform.rotation.x = -this.transform.rotation.x;
+        HP_slider.transform.rotation.y = -this.transform.rotation.y;
+        HP_slider.transform.rotation.z = -this.transform.rotation.z;
+    }
+*/
     private IEnumerator UpdatePath()
     {
         while (!dead)

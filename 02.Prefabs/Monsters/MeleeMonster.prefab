@@ -892,6 +892,7 @@ MonoBehaviour:
   curHealth: 0
   hitEffect: {fileID: 100000, guid: bc98890f6028f444eaa7789bde5e2eeb, type: 3}
   dyingEffect: {fileID: 1965343156803978, guid: aa8d6482d70a23445b4b2a928ed1b845, type: 3}
+  child: {fileID: 0}
   HP_slider: {fileID: 3196354069093905688}
   attackRange: 2
   bulletPrefab: {fileID: 1462725224879200025, guid: a00176856daa75f4c9fb8413e003c9b9, type: 3}
@@ -2732,6 +2733,38 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI_HpBar
       objectReference: {fileID: 0}
+    - target: {fileID: 4538026542998776278, guid: 16967e26456b1fd4483579b51a4e846c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4538026542998776278, guid: 16967e26456b1fd4483579b51a4e846c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4538026542998776278, guid: 16967e26456b1fd4483579b51a4e846c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4538026542998776278, guid: 16967e26456b1fd4483579b51a4e846c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4538026542998776278, guid: 16967e26456b1fd4483579b51a4e846c, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 7.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4538026542998776278, guid: 16967e26456b1fd4483579b51a4e846c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 4538026542998776279, guid: 16967e26456b1fd4483579b51a4e846c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4538026543014286654, guid: 16967e26456b1fd4483579b51a4e846c, type: 3}
+      propertyPath: m_Value
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 16967e26456b1fd4483579b51a4e846c, type: 3}
 --- !u!114 &3196354069093905688 stripped
@@ -2743,6 +2776,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &3196354070011547664 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4538026542692298806, guid: 16967e26456b1fd4483579b51a4e846c, type: 3}
+  m_PrefabInstance: {fileID: 1342622512099254310}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &751860951051570251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3196354070011547664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44a37750755514d40becf9dd055109d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!224 &3196354070011547671 stripped

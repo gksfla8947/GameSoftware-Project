@@ -26,4 +26,4 @@ public class CameraCtrl : MonoBehaviour
                 );
         transform.position = Vector3.Lerp(transform.position, PlayerPos, Time.deltaTime * CameraSpeed);
     }
-}
+}   
