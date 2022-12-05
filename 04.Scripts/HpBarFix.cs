@@ -13,7 +13,7 @@ public class HpBarFix : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        var rotation = Quaternion.LookRotation(Vector3.up, Vector3.forward);
+        var rotation = Quaternion.LookRotation(Vector3.back);
         transform.rotation = rotation;
     }
 }
