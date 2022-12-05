@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -104,6 +105,8 @@ public class ItemManager : MonoBehaviour
             item.gameObject.transform.SetParent(createPoint);
             items[i] = item;
 
+            TextMeshProUGUI itemDescription = createPoint.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
+            itemDescription.text = items[i].description;
         }
     }
 
