@@ -109,6 +109,10 @@ public class HealerCtrl : LivingEntity
         {
             mosterColliders[i].enabled = false;
         }
+        if (GameManager.instance.IsWaveStart)
+        {
+            GameManager.instance.KillCount = GameManager.instance.KillCount + 1;
+        }
 
         //추적 중지, 내비메시 비활성화
         navMeshAgent.isStopped = true;
