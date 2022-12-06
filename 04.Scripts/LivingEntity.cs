@@ -6,6 +6,9 @@ using Unity.VisualScripting;
 
 public class LivingEntity : MonoBehaviour
 {
+    public AudioClip DmgClip;
+    private AudioSource DmgSource;
+
     public float health = 100f; //시작 체력
     //[HideInInspector]
     public float curHealth; //현재 체력
@@ -34,9 +37,7 @@ public class LivingEntity : MonoBehaviour
             dead = true;
             Die();
         }
-        
         Instantiate(hitEffect, hitPoint, transform.rotation);
-
     }
 
     //체력 회복
@@ -67,6 +68,7 @@ public class LivingEntity : MonoBehaviour
     void Start()
     {
     }
+
 
     // Update is called once per frame
     void Update()
