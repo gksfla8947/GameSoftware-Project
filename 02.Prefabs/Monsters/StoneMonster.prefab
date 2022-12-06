@@ -126,8 +126,8 @@ MonoBehaviour:
   curHealth: 0
   hitEffect: {fileID: 100000, guid: bc98890f6028f444eaa7789bde5e2eeb, type: 3}
   dyingEffect: {fileID: 1965343156803978, guid: aa8d6482d70a23445b4b2a928ed1b845, type: 3}
-  attackRange: 5
-  bulletPrefab: {fileID: 249754273978406326, guid: 6556a5c43c2facd4e98e9b240d55ebc2, type: 3}
+  attackRange: 10
+  bulletPrefab: {fileID: 7375822339756482406, guid: 7ffa93a95c5283241a19c9c1d0096339, type: 3}
   damage: 20
   timeBetAttack: 0.5
 --- !u!1 &3458829540061144144

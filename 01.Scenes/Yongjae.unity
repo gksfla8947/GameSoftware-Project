@@ -3550,7 +3550,7 @@ PrefabInstance:
     - target: {fileID: 1891012008044450421, guid: 2ae7d86aa6645754f9c10f2fccf59af7, type: 3}
       propertyPath: monsterPrefab
       value: 
-      objectReference: {fileID: 7360791401042820993, guid: a61bf1b1a4c31494d8c8463360d8f1e8, type: 3}
+      objectReference: {fileID: 3458790859120066016, guid: 6b947c3a73bb1ae47bed3609e538fe17, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ae7d86aa6645754f9c10f2fccf59af7, type: 3}
 --- !u!1 &1020846864

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    private float speed = 600f;
+    private float speed = 1000f;
     private Rigidbody bulletRigidbody;
 
     public float damage { get; set; }
@@ -19,7 +19,7 @@ public class Bullet : MonoBehaviour
     {
         bulletRigidbody.velocity = transform.forward * speed * Time.deltaTime;
 
-        Destroy(gameObject, 5f); //5초 뒤 자동 파괴
+        Destroy(gameObject, 20f); //20초 뒤 자동 파괴
     }
 
 

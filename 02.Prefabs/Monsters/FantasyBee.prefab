@@ -93,7 +93,7 @@ Transform:
   m_GameObject: {fileID: 7927458275633181072}
   m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
   m_LocalPosition: {x: -0.38941026, y: -0.90110266, z: 9.454237}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7930297909459175476}
@@ -189,8 +189,8 @@ MonoBehaviour:
   curHealth: 0
   hitEffect: {fileID: 100000, guid: bc98890f6028f444eaa7789bde5e2eeb, type: 3}
   dyingEffect: {fileID: 1965343156803978, guid: aa8d6482d70a23445b4b2a928ed1b845, type: 3}
-  attackRange: 5
-  bulletPrefab: {fileID: 249754273978406326, guid: 6556a5c43c2facd4e98e9b240d55ebc2, type: 3}
+  attackRange: 10
+  bulletPrefab: {fileID: 4012737903192097206, guid: 3493953505386d04bae6354b725d7308, type: 3}
   damage: 20
   timeBetAttack: 0.5
 --- !u!1 &7927542482477187142
