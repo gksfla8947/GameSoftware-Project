@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class monsterSpawner : MonoBehaviour
 {
-    public Monster monsterPrefab;
+    public GameObject monsterPrefab;
     public float spawnRate = 3f;
 
     private float timeAfterSpawn;

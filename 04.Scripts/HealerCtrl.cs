@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class HealerCtrl : LivingEntity
 {
     private GameObject Hair;
     private GameObject Player;
+    private Slider HP_Slider; //민
 
     private float DistHair; //머리카락과의 거리
     private float DistPlayer; //플레이어와의 거리
@@ -23,10 +25,10 @@ public class HealerCtrl : LivingEntity
 
     public float recoveryAmount = 1; //힐량
 
-
+    public AudioClip hitSound;//민 피격시 재생할 소리
+    private AudioSource monsterhit;//민 오디오 소스 컴포넌트
 
     private Animator monsterAnimator;//애니메이터 컴포넌트
-    //private AudioSource monsterAudioPlayer;//오디오 소스 컴포넌트
     private Renderer monsterRenderer;//렌더러 컴포넌트
 
     public float damage = 20f;//공격력
@@ -43,7 +45,9 @@ public class HealerCtrl : LivingEntity
 
         //렌더러 컴포넌트는 자식 오브젝트에 있으므로 GetComponentInChildren 사용
         monsterRenderer = GetComponentInChildren<Renderer>();
-        Monster = LayerMask.GetMask("Monster");
+        Monster = LayerMask.GetMask("Monster"); 
+        monsterhit = GetComponent<AudioSource>(); //민
+
     }
 
 
@@ -53,11 +57,14 @@ public class HealerCtrl : LivingEntity
         Player = GameObject.FindGameObjectWithTag("Player");
         Hair = GameObject.FindGameObjectWithTag("Hair");
         StartCoroutine(UpdatePath());
+        HP_Slider = GetComponentInChildren<Slider>(); //민
     }
 
     // Update is called once per frame
     void Update()
     {
+        HP_Slider.value = curHealth / health;//민
+
     }
     private IEnumerator UpdatePath()
     {

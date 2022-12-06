@@ -65,7 +65,7 @@ public class UIManager : MonoBehaviour
         hpText.text = "HP : " + GameManager.instance.player.curHealth;
         powerText.text = "power : " + GameManager.instance.player.atk;
         speedText.text = "speed : " + (int)GameManager.instance.player.speed;
-        attackrateText.text = "AttackRate : "+ (float)GameManager.instance.player.attackRate;
+        //attackrateText.text = "AttackRate : "+ (float)GameManager.instance.player.attackRate;
     }
     public void setitemUI()
     {

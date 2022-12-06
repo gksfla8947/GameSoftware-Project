@@ -473,6 +473,7 @@ MonoBehaviour:
   amount: 0.3
   itemName: AttackRateUp
   isActiveItem: 0
+  description: 
 --- !u!4 &149751565
 Transform:
   m_ObjectHideFlags: 0
@@ -746,7 +747,7 @@ PrefabInstance:
     - target: {fileID: 1891012008044450421, guid: 2ae7d86aa6645754f9c10f2fccf59af7, type: 3}
       propertyPath: monsterPrefab
       value: 
-      objectReference: {fileID: 4786184472294944528, guid: 6359a80558eac6a4c8931e8cc1948b46, type: 3}
+      objectReference: {fileID: 916598625605437818, guid: d20a6e9daa174604481ee6e17ebd5b27, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ae7d86aa6645754f9c10f2fccf59af7, type: 3}
 --- !u!1 &215216872
@@ -1008,6 +1009,7 @@ MonoBehaviour:
   amount: 0.1
   itemName: AttackRateUp
   isActiveItem: 0
+  description: 
 --- !u!1 &295390333
 GameObject:
   m_ObjectHideFlags: 0
@@ -1630,7 +1632,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isBattleWave: 0
-  items: []
+  items:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!4 &399336135
 Transform:
   m_ObjectHideFlags: 0
@@ -3480,10 +3485,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 1981152006}
-  offsetX: 0
-  offsetY: 0
-  offsetZ: -10
+  CameraPosition: {fileID: 474938259}
   CameraSpeed: 10
+  offsetZ: -10
 --- !u!1001 &992613219
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3550,7 +3554,7 @@ PrefabInstance:
     - target: {fileID: 1891012008044450421, guid: 2ae7d86aa6645754f9c10f2fccf59af7, type: 3}
       propertyPath: monsterPrefab
       value: 
-      objectReference: {fileID: 3458790859120066016, guid: 6b947c3a73bb1ae47bed3609e538fe17, type: 3}
+      objectReference: {fileID: 2901339190992169380, guid: b13aac51f7ebde24b94d4c0664eb9875, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ae7d86aa6645754f9c10f2fccf59af7, type: 3}
 --- !u!1 &1020846864
@@ -4355,6 +4359,7 @@ MonoBehaviour:
   hpText: {fileID: 1512880311}
   powerText: {fileID: 1099271851}
   speedText: {fileID: 517484897}
+  attackrateText: {fileID: 0}
   activeItemsUI: {fileID: 0}
   ItemSelectUI: {fileID: 63658804}
   StartButton: {fileID: 581991515}
@@ -5353,6 +5358,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c089decb40dae1438a2fcb77127b898, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DmgClip: {fileID: 0}
   health: 1000
   curHealth: 0
   hitEffect: {fileID: 100000, guid: f06e78284f831ae469c74624ab5d513b, type: 3}
@@ -6100,6 +6106,7 @@ MonoBehaviour:
   amount: 0.2
   itemName: AttackRateUp
   isActiveItem: 0
+  description: 
 --- !u!1 &1787559724
 GameObject:
   m_ObjectHideFlags: 0
@@ -7123,6 +7130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f60d0baaa8b3de34ba859fcf87531ac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DmgClip: {fileID: 0}
   health: 100
   curHealth: 0
   hitEffect: {fileID: 1995403933065894, guid: 4961a16ba01e09547be3e1c9d16d5ad0, type: 3}
@@ -7133,7 +7141,7 @@ MonoBehaviour:
   mousePointer: {fileID: 739657667}
   atk: 20
   attackRate: 0.5
-  fasterAttackRate: 0.2
+  coefIncAttackRate: 0.8
   fasterAttackTime: 2
   BulletFactory: {fileID: 2838194023576813481, guid: 36ca5ff810374aa44b9267d3a6c4c083, type: 3}
   FirePos: {fileID: 784988175}
@@ -7188,6 +7196,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c089decb40dae1438a2fcb77127b898, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DmgClip: {fileID: 0}
   health: 100
   curHealth: 0
   hitEffect: {fileID: 0}
