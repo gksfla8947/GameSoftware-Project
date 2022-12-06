@@ -13,7 +13,7 @@ public class Player : LivingEntity
     public int atk = 20;
 
     public float attackRate = 0.5f;
-    public float fasterAttackRate = 0.2f;
+    public float coefIncAttackRate = 0.8f;
     public float fasterAttackTime = 3f;
 
     public GameObject BulletFactory;
@@ -27,7 +27,7 @@ public class Player : LivingEntity
     Vector3 movePoint;
     float attackCurTime = 0f;
     float fasterAttackCurTime = 0f;
-
+    int flag = 0;
     private void Awake()
     {
         mainCamera = Camera.main;
@@ -98,14 +98,24 @@ public class Player : LivingEntity
             PointMousePos();
             if(fasterAttackCurTime > fasterAttackTime)
             {
-                if (attackCurTime > fasterAttackRate)
+                if (attackCurTime > attackRate * coefIncAttackRate)
                 {
+                    if(flag == 0)
+                    {
+                        attackRate *= coefIncAttackRate;
+                        flag = 1;
+                    }
                     BulletFire();
                     attackCurTime = 0f;
                 }
             }
             if (attackCurTime > attackRate)
             {
+                if(flag == 1)
+                    {
+                        attackRate = 0.5f;
+                        flag = 0;
+                    }
                 BulletFire();
                 attackCurTime = 0f;
             }
