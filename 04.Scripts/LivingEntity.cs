@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using Unity.VisualScripting;
+//using UnityEngine.UI;//민
 
 public class LivingEntity : MonoBehaviour
 {
+    //Image hpBarImage;//민
+    public AudioClip DmgClip;
+    private AudioSource DmgSource;
     public float health = 100f; //시작 체력
-    [HideInInspector]
+    //[HideInInspector]
     public float curHealth; //현재 체력
     public bool dead { get; protected set; } //사망상태
 
@@ -34,7 +38,14 @@ public class LivingEntity : MonoBehaviour
             dead = true;
             Die();
         }
-        Instantiate(hitEffect, hitPoint, transform.rotation);
+/*        else
+        {
+            DmgSource.clip = DmgClip;//민 
+            DmgSource.Play();
+        }
+*/        Instantiate(hitEffect, hitPoint, transform.rotation);
+
+        playsound(DmgClip, DmgSource);
     }
 
     //체력 회복
@@ -64,11 +75,20 @@ public class LivingEntity : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        this.DmgSource = GetComponent<AudioSource>();
         // health = startingHealth;
+        //hpBarImage = GetComponentInChildren<Image>();//민
+    }
+
+    public static void playsound(AudioClip clip, AudioSource audioSource)
+    {
+        audioSource.clip = clip;
+        audioSource.Play();
     }
 
     // Update is called once per frame
     void Update()
     {
+        //hpBarImage.fillAmount = curHealth / health;//민
     }
 }
