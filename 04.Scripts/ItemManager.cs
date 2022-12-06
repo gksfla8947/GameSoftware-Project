@@ -91,7 +91,7 @@ public class ItemManager : MonoBehaviour
     {
         for (int i = 0; i < items.Length; i++)
         {
-            Destroy(UIManager.instance.ItemSelectUI.transform.GetChild(0).GetChild(i).GetChild(0).gameObject);
+            Destroy(UIManager.instance.ItemSelectUI.transform.GetChild(0).GetChild(i).GetChild(1).gameObject);
         }
     }
 
@@ -106,7 +106,7 @@ public class ItemManager : MonoBehaviour
             items[i] = item;
 
             TextMeshProUGUI itemDescription = createPoint.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
-            itemDescription.text = items[i].description;
+            itemDescription.text = item.description;
         }
     }
 
