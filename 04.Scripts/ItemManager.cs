@@ -105,8 +105,12 @@ public class ItemManager : MonoBehaviour
             item.gameObject.transform.SetParent(createPoint);
             items[i] = item;
 
+<<<<<<< Updated upstream
             TextMeshProUGUI itemDescription = createPoint.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
             itemDescription.text = item.description;
+=======
+
+>>>>>>> Stashed changes
         }
     }
 
