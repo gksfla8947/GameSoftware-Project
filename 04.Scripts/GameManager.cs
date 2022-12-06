@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
 
     [HideInInspector] 
     public Wave currentWave;
-    [HideInInspector]
+    //[HideInInspector]
     public Player player;
 
     private int currentWaveNum = 0;
@@ -52,15 +52,15 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        if (instance == null) //instance°¡ null. Áï, ½Ã½ºÅÛ»ó¿¡ Á¸ÀçÇÏ°í ÀÖÁö ¾ÊÀ»¶§
+        if (instance == null) //instanceï¿½ï¿½ null. ï¿½ï¿½, ï¿½Ã½ï¿½ï¿½Û»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         {
-            instance = this; //³»ÀÚ½ÅÀ» instance·Î ³Ö¾îÁÝ´Ï´Ù.
-            DontDestroyOnLoad(gameObject); //OnLoad(¾ÀÀÌ ·Îµå µÇ¾úÀ»¶§) ÀÚ½ÅÀ» ÆÄ±«ÇÏÁö ¾Ê°í À¯Áö
+            instance = this; //ï¿½ï¿½ï¿½Ú½ï¿½ï¿½ï¿½ instanceï¿½ï¿½ ï¿½Ö¾ï¿½ï¿½Ý´Ï´ï¿½.
+            DontDestroyOnLoad(gameObject); //OnLoad(ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½ï¿½) ï¿½Ú½ï¿½ï¿½ï¿½ ï¿½Ä±ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê°ï¿½ ï¿½ï¿½ï¿½ï¿½
         }
         else
         {
-            if (instance != this) //instance°¡ ³»°¡ ¾Æ´Ï¶ó¸é ÀÌ¹Ì instance°¡ ÇÏ³ª Á¸ÀçÇÏ°í ÀÖ´Ù´Â ÀÇ¹Ì
-                Destroy(this.gameObject); //µÑ ÀÌ»ó Á¸ÀçÇÏ¸é ¾ÈµÇ´Â °´Ã¼ÀÌ´Ï ¹æ±Ý AWakeµÈ ÀÚ½ÅÀ» »èÁ¦
+            if (instance != this) //instanceï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ï¶ï¿½ï¿½ ï¿½Ì¹ï¿½ instanceï¿½ï¿½ ï¿½Ï³ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ö´Ù´ï¿½ ï¿½Ç¹ï¿½
+                Destroy(this.gameObject); //ï¿½ï¿½ ï¿½Ì»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½ÈµÇ´ï¿½ ï¿½ï¿½Ã¼ï¿½Ì´ï¿½ ï¿½ï¿½ï¿½ AWakeï¿½ï¿½ ï¿½Ú½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         }
     }
     // Start is called before the first frame update
