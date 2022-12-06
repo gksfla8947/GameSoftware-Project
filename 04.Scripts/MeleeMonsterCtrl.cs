@@ -2,29 +2,35 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using System.Linq; //LINQ 사용
+using UnityEngine.UI;
 
 
 public class MeleeMonsterCtrl : LivingEntity
 {
     private GameObject Hair;
     private GameObject Player;
+    private Slider HP_slider;//민
 
     private float DistHair; //머리카락과의 거리
     private float DistPlayer; //플레이어와의 거리
     private float DistTarget; //타겟과의 거리
 
-
     public float attackRange = 5; //공격 사정거리
     public GameObject bulletPrefab;
 
+    //public LayerMask whatIstarget; //추적 대상 레이어 필요 없어짐
 
     private LivingEntity targetEntity;//추적 대상
     private NavMeshAgent navMeshAgent;//경로 계산 AI
 
+    //List<Target> targets = new List<Target>(); 필요 없어짐
+
+    //public ParticleSystem hitEffect;//피격시 재생할 파티클
     //public AudioClip deathSound;//사망시 재생할 소리
     //public AudioClip hitSound;//피격시 재생할 소리
 
-    private Animator monsterAnimator;//애니메이터 컴포넌트
+    //private Animator mosterAnimator;//애니메이터 컴포넌트
     //private AudioSource monsterAudioPlayer;//오디오 소스 컴포넌트
     private Renderer mosterRenderer;//렌더러 컴포넌트
 
@@ -37,31 +43,42 @@ public class MeleeMonsterCtrl : LivingEntity
     {
         // 게임 오브젝트로부터 사용할 컴포넌트 가져오기
         navMeshAgent = GetComponent<NavMeshAgent>();
-        monsterAnimator = GetComponent<Animator>();
+        //monsterAnimator = GetComponent<Animator>();  애니메이터, 지금 없음
         //monsterAudioPlayer = GetComponent<AudioSource>();   오디오 플레이어, 지금 없음
 
         //렌더러 컴포넌트는 자식 오브젝트에 있으므로 GetComponentInChildren 사용
         mosterRenderer = GetComponentInChildren<Renderer>();
+        // whatIstarget = LayerMask.GetMask("Target"); 필요 없어짐
     }
 
     // Start is called before the first frame update
     private void Start()
     {
         Player = GameObject.FindGameObjectWithTag("Player");
-        Hair = GameObject.FindGameObjectWithTag("Hair");
+        //Hair = GameObject.FindGameObjectWithTag("Hair");
+        Hair = GameObject.Find("Stage").transform.GetChild(3).gameObject;
         StartCoroutine(UpdatePath());
+        HP_slider = GetComponentInChildren<Slider>();//민
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        //추적 대상의 존재 여부에 따라 다른 애니메이션 재생
+        //monsterAnimator.SetBool("HasTarget", hasTarget);
+        HP_slider.value = curHealth / health;//민    
     }
+/*    private void FixedUpdate()
+    {
+        HP_slider.transform.rotation.x = -this.transform.rotation.x;
+        HP_slider.transform.rotation.y = -this.transform.rotation.y;
+        HP_slider.transform.rotation.z = -this.transform.rotation.z;
+    }
+*/
     private IEnumerator UpdatePath()
     {
         while (!dead)
         {
-            monsterAnimator.CrossFade("Walk", 0f);
 
             DistHair = Vector3.Distance(transform.position, Hair.transform.position);
             DistPlayer = Vector3.Distance(transform.position, Player.transform.position);
@@ -87,13 +104,21 @@ public class MeleeMonsterCtrl : LivingEntity
                 navMeshAgent.SetDestination(targetEntity.transform.position);
             }
 
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.25f);
         }
     }
 
     public override void OnDamage(float damage, Vector3 hitPoint, Vector3 hitNormal)
     {
-        monsterAnimator.CrossFade("Damage", 0f);
+        if (!dead)
+        {
+            //공격받은 지점과 방향으로 파티클 효과 재생
+            //hitEffect.transform.position = hitPoint;
+            //hitEffect.transform.rotation = Quaternion.LookRotation(hitNormal);
+            //hitEffect.PLay();
+
+            //mosterAudioPlayer.PlayOneShot(hitSound); //피격 효과음 재생
+        }
 
         base.OnDamage(damage, hitPoint, hitNormal);
     }
@@ -113,8 +138,12 @@ public class MeleeMonsterCtrl : LivingEntity
         //추적 중지, 내비메시 비활성화
         navMeshAgent.isStopped = true;
         navMeshAgent.enabled = false;
-
         base.Die();
+
+        //사망 애니메이션 재생
+        //mosterAnimator.Settrigger("Die");
+        //사망 효과음 재생
+        //mosterAudioPlayer.PlayOneShot(deathSound);
 
     }
 
@@ -125,7 +154,6 @@ public class MeleeMonsterCtrl : LivingEntity
 
     private void attack(LivingEntity target)
     {
-        monsterAnimator.CrossFade("Hit", 0f);
         //자신이 사망하지 않았고 공격 딜레이가 지났으면 공격
         if (!dead && Time.time >= lastAttackTime + timeBetAttack)
         {
@@ -137,8 +165,6 @@ public class MeleeMonsterCtrl : LivingEntity
             GameObject bullet = Instantiate(bulletPrefab, curPos, Quaternion.identity);
             bullet.transform.LookAt(targetEntity.transform);
 
-            MeleeAttack temp = bullet.GetComponent<MeleeAttack>();
-            temp.damage = damage;
         }
     }
 }

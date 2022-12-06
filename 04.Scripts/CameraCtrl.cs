@@ -4,23 +4,26 @@ using UnityEngine;
 
 public class CameraCtrl : MonoBehaviour
 {
-    public GameObject Player;            
+    public GameObject Player;
+    public GameObject CameraPosition;
 
-    public float offsetX = 0f;      
-    public float offsetY = 10f;           
-    public float offsetZ = 0f;         
-
-    public float CameraSpeed = 10.0f;       
-    Vector3 PlayerPos;                      
+    public float CameraSpeed = 10.0f;
+    Vector3 PlayerPos;
+    public float offsetZ;
+    private void Start()
+    {
+        offsetZ = Player.transform.position.z;
+    }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+
         PlayerPos = new Vector3(
-            Player.transform.position.x + offsetX,
-            transform.position.y,
-            Player.transform.position.z + offsetZ
-            );
+                Player.transform.position.x + CameraPosition.transform.position.x,
+                Player.transform.position.y + CameraPosition.transform.position.y,
+                Player.transform.position.z - offsetZ + CameraPosition.transform.position.z
+                );
         transform.position = Vector3.Lerp(transform.position, PlayerPos, Time.deltaTime * CameraSpeed);
     }
-}
+}   

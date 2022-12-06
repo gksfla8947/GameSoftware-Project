@@ -13,10 +13,13 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI hpText;
     public TextMeshProUGUI powerText;
     public TextMeshProUGUI speedText;
+    public TextMeshProUGUI attackrateText;
 
     public GameObject activeItemsUI;
     public GameObject ItemSelectUI;
     public GameObject StartButton;
+
+
 
     private void Awake()
     {
@@ -62,6 +65,7 @@ public class UIManager : MonoBehaviour
         hpText.text = "HP : " + GameManager.instance.player.curHealth;
         powerText.text = "power : " + GameManager.instance.player.atk;
         speedText.text = "speed : " + (int)GameManager.instance.player.speed;
+        attackrateText.text = "AttackRate : "+ (float)GameManager.instance.player.attackRate;
     }
     public void setitemUI()
     {
