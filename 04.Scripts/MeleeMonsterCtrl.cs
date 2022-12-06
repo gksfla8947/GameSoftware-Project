@@ -10,7 +10,7 @@ public class MeleeMonsterCtrl : LivingEntity
 {
     private GameObject Hair;
     private GameObject Player;
-    private Slider HP_slider;//민
+    private Slider HP_slider;//민 체력바 이미지(슬라이더)
 
     private float DistHair; //머리카락과의 거리
     private float DistPlayer; //플레이어와의 거리
@@ -28,10 +28,11 @@ public class MeleeMonsterCtrl : LivingEntity
 
     //public ParticleSystem hitEffect;//피격시 재생할 파티클
     //public AudioClip deathSound;//사망시 재생할 소리
-    //public AudioClip hitSound;//피격시 재생할 소리
+    public AudioClip hitSound;//민 피격시 재생할 소리 
+    private AudioSource monsterhit; //민  몬스터내에 추가한 audiosource 컴퍼넌트 사용하기 위한
 
     //private Animator mosterAnimator;//애니메이터 컴포넌트
-    //private AudioSource monsterAudioPlayer;//오디오 소스 컴포넌트
+    //private AudioSource monsterAudioPlayer;//오디오 소스 컴포넌트 
     private Renderer mosterRenderer;//렌더러 컴포넌트
 
     public float damage = 20f;//공격력
@@ -49,6 +50,7 @@ public class MeleeMonsterCtrl : LivingEntity
         //렌더러 컴포넌트는 자식 오브젝트에 있으므로 GetComponentInChildren 사용
         mosterRenderer = GetComponentInChildren<Renderer>();
         // whatIstarget = LayerMask.GetMask("Target"); 필요 없어짐
+        monsterhit = GetComponent<AudioSource>();//민 해당 스크립트를 가진 몬스터가 생성시 자동으로 불러오기
     }
 
     // Start is called before the first frame update
@@ -64,6 +66,7 @@ public class MeleeMonsterCtrl : LivingEntity
     // Update is called once per frame
     void Update()
     {
+
         //추적 대상의 존재 여부에 따라 다른 애니메이션 재생
         //monsterAnimator.SetBool("HasTarget", hasTarget);
         HP_slider.value = curHealth / health;//민    
@@ -110,6 +113,7 @@ public class MeleeMonsterCtrl : LivingEntity
 
     public override void OnDamage(float damage, Vector3 hitPoint, Vector3 hitNormal)
     {
+        monsterhit.PlayOneShot(hitSound);//민 맞을때 마다 해당 스크립트에서 가져온 hitSound 를 플레이 하겠다는 의미.
         if (!dead)
         {
             //공격받은 지점과 방향으로 파티클 효과 재생
@@ -119,12 +123,12 @@ public class MeleeMonsterCtrl : LivingEntity
 
             //mosterAudioPlayer.PlayOneShot(hitSound); //피격 효과음 재생
         }
-
         base.OnDamage(damage, hitPoint, hitNormal);
     }
 
     public override void Die()
     {
+        //monsterhit.PlayOneShot(hitSound);
         //자신의 모든 콜라이더 비활성화
         Collider[] mosterColliders = GetComponents<Collider>();
         for (int i = 0; i < mosterColliders.Length; i++)
