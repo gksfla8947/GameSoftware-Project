@@ -10,6 +10,7 @@ public class LivingEntity : MonoBehaviour
     private AudioSource DmgSource;
 
     public float health = 100f; //시작 체력
+    //[HideInInspector]
     public float curHealth; //현재 체력
     public bool dead { get; protected set; } //사망상태
 
@@ -60,17 +61,5 @@ public class LivingEntity : MonoBehaviour
     {
         Destroy(gameObject);
         Instantiate(dyingEffect, transform.position, transform.rotation);
-    }
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
-
-
-    // Update is called once per frame
-    void Update()
-    {
     }
 }
