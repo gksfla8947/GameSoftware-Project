@@ -13,38 +13,10 @@ public class Player : LivingEntity
     public float coefIncAttackRate = 0.8f;
     public float fasterAttackTime = 3f;
 
-
-    
-
-    public virtual void StartInit()
+    public override void Awake()
     {
-
+        base.Awake();
     }
-    public virtual void AwakeInit()
-    {
-        
-    }
-
-    public virtual void UpdateVirtual()
-    {
-
-    }
-
-    private void Awake()
-    {
-        StartInit();
-    }
-    private void Start()
-    {
-        StartInit();
-    }
-
-    void Update()
-    {
-        UpdateVirtual();
-    }
-
-    
 
     public override void OnDamage(float damage, Vector3 hitPoint, Vector3 hitNormal)
     {
@@ -55,5 +27,25 @@ public class Player : LivingEntity
     {
         base.Die();
         Time.timeScale = 0;
+    }
+
+    public virtual void UseActiveItem()
+    {
+        if (ItemManager.instance.SlotItems[0] != null)
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                ItemManager.instance.ActiveSlotItem(0);
+                ItemManager.instance.ClearActiveItem(0);
+            }
+        }
+        if (ItemManager.instance.SlotItems[1] != null)
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                ItemManager.instance.ActiveSlotItem(1);
+                ItemManager.instance.ClearActiveItem(1);
+            }
+        } 
     }
 }

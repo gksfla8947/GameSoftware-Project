@@ -60,10 +60,9 @@ public class HealerCtrl : LivingEntity
     }
 
     // Update is called once per frame
-    void Update()
+    public override void Update()
     {
-        HP_Slider.value = curHealth / health;//¹Î
-
+        base.Update();
     }
     private IEnumerator UpdatePath()
     {

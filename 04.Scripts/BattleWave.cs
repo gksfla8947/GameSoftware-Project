@@ -5,8 +5,9 @@ using UnityEngine;
 public class BattleWave : Wave
 {
     public int winToKillNum = 10;
-    public monsterSpawner[] spawners;
+    public MonsterSpawner[] spawners;
 
+    public int spawnMaxNum;
     protected override void Awake()
     {
         base.Awake();
@@ -29,7 +30,7 @@ public class BattleWave : Wave
     protected override void StartWave()
     {
         base.StartWave();
-        foreach (monsterSpawner spawner in spawners)
+        foreach (MonsterSpawner spawner in spawners)
         {
             spawner.gameObject.SetActive(true);
         }
@@ -39,10 +40,12 @@ public class BattleWave : Wave
     {
         GameManager.instance.KillCount = 0;
         battleWaveNum += 1;
-        foreach (monsterSpawner spawner in spawners)
+        foreach (MonsterSpawner spawner in spawners)
         {
             spawner.gameObject.SetActive(false);
         }
+        Monster[] monsters = GameObject.Find("Object Pool").transform.GetChild(0).GetComponentsInChildren<Monster>();
+        foreach (Monster monster in monsters) { Destroy(monster.gameObject); }
         base.EndWave();
     }
 }

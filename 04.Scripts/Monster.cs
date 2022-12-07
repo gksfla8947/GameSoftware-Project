@@ -58,9 +58,9 @@ public class Monster : LivingEntity
     }
 
     // Update is called once per frame
-    void Update()
+    public override void Update()
     {
-        HP_Slider.value = curHealth / health;//민
+        base.Update();
     }
     private IEnumerator UpdatePath()
     {
@@ -84,7 +84,7 @@ public class Monster : LivingEntity
             if (DistTarget <= attackRange) //타겟과의 거리가 공격범위 이하이면 공격
             {
                 navMeshAgent.isStopped = true;
-                attack(targetEntity);
+                Attack(targetEntity);
             }
             else //아니면 타겟을 향해 이동
             {
@@ -114,7 +114,7 @@ public class Monster : LivingEntity
         }
         if (GameManager.instance.IsWaveStart)
         {
-            GameManager.instance.KillCount = GameManager.instance.KillCount + 1;
+            GameManager.instance.KillCount += 1;
         }
         //추적 중지, 내비메시 비활성화
         navMeshAgent.isStopped = true;
@@ -129,7 +129,7 @@ public class Monster : LivingEntity
         base.RestoreHealth(newHealth);
     }
 
-    private void attack(LivingEntity target)
+    private void Attack(LivingEntity target)
     {
         monsterAnimator.CrossFade("Hit", 0f);
         //자신이 사망하지 않았고 공격 딜레이가 지났으면 공격
@@ -156,8 +156,12 @@ public class Monster : LivingEntity
             {
                 temp2.damage = damage;
             }
-
-
         }
+    }
+
+    public override void OnDestroy()
+    {
+        base.OnDestroy();
+
     }
 }

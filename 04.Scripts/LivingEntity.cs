@@ -3,27 +3,34 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using Unity.VisualScripting;
+using UnityEngine.UI;
 
 public class LivingEntity : MonoBehaviour
 {
     public AudioClip DmgClip;
-    private AudioSource DmgSource;
 
     public float health = 100f; //시작 체력
-    //[HideInInspector]
     public float curHealth; //현재 체력
     public bool dead { get; protected set; } //사망상태
 
     public GameObject hitEffect;
     public GameObject dyingEffect;
 
-    //생명체가 활성화될 때 상태를 리셋
+    private AudioSource DmgSource;
+    protected Slider HP_slider;//민 체력바 이미지(슬라이더)
+
     public virtual void Awake()
     {
         //사망하지 않은 상태로 시작
         dead = false;
         //체력 초기화
         curHealth = health;
+        HP_slider = GetComponentInChildren<Slider>();//민
+    }
+
+    public virtual void Update()
+    {
+        HP_slider.value = curHealth / health;//민
     }
 
     // 대미지 입는 기능
@@ -59,7 +66,12 @@ public class LivingEntity : MonoBehaviour
     //사망처리
     public virtual void Die()
     {
-        Destroy(gameObject);
         Instantiate(dyingEffect, transform.position, transform.rotation);
+
+        Destroy(gameObject);
+    }
+
+    public virtual void OnDestroy()
+    {
     }
 }

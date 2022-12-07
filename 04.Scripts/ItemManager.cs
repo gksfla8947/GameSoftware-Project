@@ -11,6 +11,11 @@ public class ItemManager : MonoBehaviour
 
     private Item[] items;
     private Item[] slotItems;
+    public Item[] SlotItems
+    {
+        get { return slotItems; }
+        set { slotItems = value; }
+    }
     private int itemNum = 3;
     private int slotItemNum = 2;
 
@@ -19,15 +24,15 @@ public class ItemManager : MonoBehaviour
     {
 
         {
-            if (instance == null) //instance�� null. ��, �ý��ۻ� �����ϰ� ���� ������
+            if (instance == null)
             {
-                instance = this; //���ڽ��� instance�� �־��ݴϴ�.
-                DontDestroyOnLoad(gameObject); //OnLoad(���� �ε� �Ǿ�����) �ڽ��� �ı����� �ʰ� ����
+                instance = this;
+                DontDestroyOnLoad(gameObject);
             }
             else
             {
-                if (instance != this) //instance�� ���� �ƴ϶�� �̹� instance�� �ϳ� �����ϰ� �ִٴ� �ǹ�
-                    Destroy(this.gameObject); //�� �̻� �����ϸ� �ȵǴ� ��ü�̴� ��� AWake�� �ڽ��� ����
+                if (instance != this) 
+                    Destroy(this.gameObject); 
             }
         }
 
@@ -93,6 +98,10 @@ public class ItemManager : MonoBehaviour
         {
             Destroy(UIManager.instance.ItemSelectUI.transform.GetChild(0).GetChild(i).GetChild(1).gameObject);
         }
+    }
+    public void ClearActiveItem(int number)
+    {
+        Destroy(UIManager.instance.activeItemsUI.transform.GetChild(number).GetChild(0).gameObject);
     }
 
     public void InstantiateItems()

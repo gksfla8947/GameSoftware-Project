@@ -48,19 +48,24 @@ public class GameManager : MonoBehaviour
         set { activeItemSlot = value; }
     }
 
-    
+    private int numOfMonster = 0;
+    public int NumOfMonster
+    {
+        get { return numOfMonster; }
+        set { numOfMonster = value; }
+    }
 
     private void Awake()
     {
-        if (instance == null) //instance�� null. ��, �ý��ۻ� �����ϰ� ���� ������
+        if (instance == null) 
         {
-            instance = this; //���ڽ��� instance�� �־��ݴϴ�.
-            DontDestroyOnLoad(gameObject); //OnLoad(���� �ε� �Ǿ�����) �ڽ��� �ı����� �ʰ� ����
+            instance = this; 
+            DontDestroyOnLoad(gameObject); 
         }
         else
         {
-            if (instance != this) //instance�� ���� �ƴ϶�� �̹� instance�� �ϳ� �����ϰ� �ִٴ� �ǹ�
-                Destroy(this.gameObject); //�� �̻� �����ϸ� �ȵǴ� ��ü�̴� ��� AWake�� �ڽ��� ����
+            if (instance != this) 
+                Destroy(this.gameObject); 
         }
     }
     // Start is called before the first frame update
@@ -76,6 +81,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        numOfMonster = GameObject.Find("Object Pool").transform.GetChild(0).childCount;
         // UI
         UIManager.instance.setScoreUI();
         UIManager.instance.setWaveUI();

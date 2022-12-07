@@ -9,31 +9,30 @@ public class GunPlayer : Player
     public GameObject BulletFactory;
     public Transform FirePos;
     public GameObject FireEffect;
-
     public Animator playerAnimator;
-    public bool isIdle;
-    public bool isAttack;
+
+    private bool isIdle;
+    private bool isAttack;
 
     Vector3 movePoint;
     float attackCurTime = 0f;
     float fasterAttackCurTime = 0f;
+    float fasterAttackRate = 0.2f;
 
-    public override void StartInit()
+    public override void Awake()
     {
-        base.StartInit();
-    }
-    public override void AwakeInit()
-    {
-        base.AwakeInit();
+        base.Awake();
         mainCamera = Camera.main;
         playerAnimator = GetComponent<Animator>();
         movePoint = transform.position;
         isIdle = true;
         isAttack = false;
     }
-    public override void UpdateVirtual()
+
+    public override void Update()
     {
-        base.UpdateVirtual();
+        base.Update();
+        base.UseActiveItem();
         float hAxis = Input.GetAxisRaw("Horizontal");
         float vAxis = Input.GetAxisRaw("Vertical");
 
@@ -56,9 +55,10 @@ public class GunPlayer : Player
     }
     void PointMousePos()
     {
+        Vector3 d = Input.mousePosition;
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
 
-        if (Physics.Raycast(ray, out RaycastHit raycastHit, 300.0f, 1 << 8))
+        if (Physics.Raycast(ray, out RaycastHit raycastHit, 300.0f, 3))
         {
             movePoint = raycastHit.point;
             mousePointer.transform.position = raycastHit.point;
@@ -129,5 +129,12 @@ public class GunPlayer : Player
     {
         Instantiate(FireEffect, FirePos.transform.position, FirePos.transform.rotation);
         Instantiate(BulletFactory, FirePos.transform.position, FirePos.transform.rotation);
+        /*
+        GameObject bullet = ObjectPool.GetObject();
+        var direction = movePoint - FirePos.position;
+        direction.y = 0f;
+        bullet.transform.position = direction.normalized;
+        bullet.GetComponent<PlayerBullet>().Shoot(direction.normalized);
+        */
     }
 }

@@ -3,24 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class structure : LivingEntity
+public class Structure : LivingEntity
 {
-    private Slider HP_slider;//πŒ √º∑¬πŸ ¿ÃπÃ¡ˆ(ΩΩ∂Û¿Ã¥ı)
-
     public override void Awake()
     {
         base.Awake();
+        HP_slider = transform.GetChild(0).GetComponentInChildren<Slider>();//πŒ
     }
     // Start is called before the first frame update
     void Start()
     {
-        HP_slider = GetComponentInChildren<Slider>();//πŒ
     }
 
     // Update is called once per frame
-    void Update()
+    public override void Update()
     {
-        HP_slider.value = curHealth / health;//πŒ
+        base.Update();
     }
 
     public override void OnDamage(float damage, Vector3 hitPoint, Vector3 hitNormal)
