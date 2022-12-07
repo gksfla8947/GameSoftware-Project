@@ -35,8 +35,9 @@ public class Monster : LivingEntity
     private float lastAttackTime;//마지막 공격 시점
 
 
-    private void Awake()
+    public override void Awake()
     {
+        base.Awake();
         // 게임 오브젝트로부터 사용할 컴포넌트 가져오기
         navMeshAgent = GetComponent<NavMeshAgent>();
         monsterAnimator = GetComponent<Animator>();
@@ -149,7 +150,7 @@ public class Monster : LivingEntity
                 temp.damage = damage;
             }
 
-            Bullet temp2 = bullet.GetComponent<Bullet>();
+            PlayerBullet temp2 = bullet.GetComponent<PlayerBullet>();
 
             if (temp2 != null)
             {

@@ -7,6 +7,10 @@ public class structure : LivingEntity
 {
     private Slider HP_slider;//민 체력바 이미지(슬라이더)
 
+    public override void Awake()
+    {
+        base.Awake();
+    }
     // Start is called before the first frame update
     void Start()
     {

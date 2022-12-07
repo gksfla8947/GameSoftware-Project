@@ -28,8 +28,9 @@ public class Player : LivingEntity
     float attackCurTime = 0f;
     float fasterAttackCurTime = 0f;
     int flag = 0;
-    private void Awake()
+    public override void Awake()
     {
+        base.Awake();
         mainCamera = Camera.main;
         playerAnimator = GetComponent<Animator>();
         movePoint = transform.position;

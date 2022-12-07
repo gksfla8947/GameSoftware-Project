@@ -34,8 +34,9 @@ public class MonsterCtrl : LivingEntity
 
 
 
-    private void Awake()
+    public override void Awake()
     {
+        base.Awake();
         // 게임 오브젝트로부터 사용할 컴포넌트 가져오기
         navMeshAgent = GetComponent<NavMeshAgent>();
         monsterAnimator = GetComponent<Animator>();
@@ -136,7 +137,7 @@ public class MonsterCtrl : LivingEntity
             GameObject bullet = Instantiate(bulletPrefab, curPos, Quaternion.identity);
             
             bullet.transform.LookAt(targetEntity.transform);
-            Bullet temp = bullet.GetComponent<Bullet>();
+            PlayerBullet temp = bullet.GetComponent<PlayerBullet>();
             temp.damage = damage;
 
         }

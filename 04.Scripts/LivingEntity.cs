@@ -10,7 +10,6 @@ public class LivingEntity : MonoBehaviour
     private AudioSource DmgSource;
 
     public float health = 100f; //시작 체력
-    //[HideInInspector]
     public float curHealth; //현재 체력
     public bool dead { get; protected set; } //사망상태
 
@@ -18,7 +17,7 @@ public class LivingEntity : MonoBehaviour
     public GameObject dyingEffect;
 
     //생명체가 활성화될 때 상태를 리셋
-    protected virtual void OnEnable()
+    public virtual void Awake()
     {
         //사망하지 않은 상태로 시작
         dead = false;

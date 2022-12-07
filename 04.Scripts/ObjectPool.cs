@@ -8,7 +8,7 @@ public class ObjectPool : MonoBehaviour
     [SerializeField]
     private GameObject poolingObjectPrefab;
 
-    Queue<Bullet> poolingObjectQueue = new Queue<Bullet>();
+    Queue<PlayerBullet> poolingObjectQueue = new Queue<PlayerBullet>();
 
     private void Awake()
     {
@@ -25,15 +25,15 @@ public class ObjectPool : MonoBehaviour
         }
     }
 
-    private Bullet CreateNewObject()
+    private PlayerBullet CreateNewObject()
     {
-        var newObj = Instantiate(poolingObjectPrefab).GetComponent<Bullet>();
+        var newObj = Instantiate(poolingObjectPrefab).GetComponent<PlayerBullet>();
         newObj.gameObject.SetActive(false);
         newObj.transform.SetParent(transform);
         return newObj;
     }
 
-    public static Bullet GetObject()
+    public static PlayerBullet GetObject()
     {
         if (Instance.poolingObjectQueue.Count > 0)
         {
@@ -51,7 +51,7 @@ public class ObjectPool : MonoBehaviour
         }
     }
 
-    public static void ReturnObject(Bullet obj)
+    public static void ReturnObject(PlayerBullet obj)
     {
         obj.gameObject.SetActive(false);
         obj.transform.SetParent(Instance.transform);
