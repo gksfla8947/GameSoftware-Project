@@ -109,7 +109,6 @@ public class GameManager : MonoBehaviour
             {
                 isGameStart = false;
                 SceneManager.LoadScene("EndScene");
-                Application.Quit();
             }
         }
         ItemManager.instance.GetPreWave();
