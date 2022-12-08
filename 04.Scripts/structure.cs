@@ -25,12 +25,6 @@ public class structure : LivingEntity
 
         if (!dead)
         {
-            //공격받은 지점과 방향으로 파티클 효과 재생
-            //hitEffect.transform.position = hitPoint;
-            //hitEffect.transform.rotation = Quaternion.LookRotation(hitNormal);
-            //hitEffect.PLay();
-
-            //mosterAudioPlayer.PlayOneShot(hitSound); //피격 효과음 재생
         }
     }
 
@@ -44,11 +38,5 @@ public class structure : LivingEntity
         }
 
         base.Die();
-
-        //사망 애니메이션 재생
-        //mosterAnimator.Settrigger("Die");
-        //사망 효과음 재생
-        //mosterAudioPlayer.PlayOneShot(deathSound);
-
     }
 }

@@ -113,7 +113,7 @@ public class MeleeMonsterCtrl : LivingEntity
 
     public override void OnDamage(float damage, Vector3 hitPoint, Vector3 hitNormal)
     {
-        monsterhit.PlayOneShot(hitSound);//민 맞을때 마다 해당 스크립트에서 가져온 hitSound 를 플레이 하겠다는 의미.
+        monsterhit.PlayOneShot(hitSound);//민 맞을때 마다 해당 스크립트에서 가져온 hitSound 를 플레이 하겠다는 
         if (!dead)
         {
             //공격받은 지점과 방향으로 파티클 효과 재생
