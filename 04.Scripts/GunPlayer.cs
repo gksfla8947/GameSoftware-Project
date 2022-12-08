@@ -128,7 +128,8 @@ public class GunPlayer : Player
     void BulletFire()
     {
         Instantiate(FireEffect, FirePos.transform.position, FirePos.transform.rotation);
-        Instantiate(BulletFactory, FirePos.transform.position, FirePos.transform.rotation);
+        GameObject bullet = Instantiate(BulletFactory, FirePos.transform.position, FirePos.transform.rotation);
+        bullet.transform.SetParent(GameObject.Find("Object Pool").transform.GetChild(1));
         /*
         GameObject bullet = ObjectPool.GetObject();
         var direction = movePoint - FirePos.position;
