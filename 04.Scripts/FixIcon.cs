@@ -32,6 +32,9 @@ public class FixIcon : MonoBehaviour
     }
     private void OnDisable()
     {
-        marker.SetActive(false);
+        if(marker != null)
+        {
+            marker.SetActive(false);
+        }
     }
 }

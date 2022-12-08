@@ -88,8 +88,11 @@ public class Monster : LivingEntity
             }
             else //아니면 타겟을 향해 이동
             {
-                navMeshAgent.isStopped = false;
-                navMeshAgent.SetDestination(targetEntity.transform.position);
+                if (gameObject.activeSelf)
+                {
+                    navMeshAgent.isStopped = false;
+                    navMeshAgent.SetDestination(targetEntity.transform.position);
+                }         
             }
 
             yield return new WaitForSeconds(0.5f);
@@ -162,6 +165,5 @@ public class Monster : LivingEntity
     public override void OnDestroy()
     {
         base.OnDestroy();
-
     }
 }

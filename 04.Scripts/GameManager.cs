@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -78,20 +78,25 @@ public class GameManager : MonoBehaviour
         activeItemSlot = 2;
         player = GameObject.Find(playerType).GetComponent<Player>();
         currentWave = waves[currentWaveNum].GetComponent<Wave>();
-    }
-
-    void Update()
-    {
-        numOfMonster = GameObject.Find("Object Pool").transform.GetChild(0).childCount;
-        // UI
         UIManager.instance.setScoreUI();
         UIManager.instance.setWaveUI();
         UIManager.instance.setitemUI();
         UIManager.instance.setState();
+    }
 
-        // Wave
+    void Update()
+    {
+        
         if (isGameStart)
         {
+            UIManager.instance.setScoreUI();
+            UIManager.instance.setWaveUI();
+            UIManager.instance.setitemUI();
+            UIManager.instance.setState();
+
+            numOfMonster = GameObject.Find("Object Pool").transform.GetChild(0).childCount;
+
+
             if (currentWaveNum < waves.Length)
             {
                 currentWave = waves[currentWaveNum].GetComponent<Wave>();
@@ -100,10 +105,17 @@ public class GameManager : MonoBehaviour
                     StartCurrentWave();
                 }
             }
+            else if(currentWaveNum == waves.Length)
+            {
+                isGameStart = false;
+                SceneManager.LoadScene("EndScene");
+                Application.Quit();
+            }
         }
+        ItemManager.instance.GetPreWave();
+
 
         // Item
-        ItemManager.instance.GetPreWave();
     }
 
     public void StartCurrentWave()
