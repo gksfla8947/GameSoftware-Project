@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public Wave currentWave;
     //[HideInInspector]
     public Player player;
+    public string playerType;
 
     private int currentWaveNum = 0;
     public int CurrentWaveNum
@@ -75,7 +76,7 @@ public class GameManager : MonoBehaviour
         isWaveStart = false;
         killCount = 0;
         activeItemSlot = 2;
-        player = GameObject.Find("Player").GetComponent<Player>();
+        player = GameObject.Find(playerType).GetComponent<Player>();
         currentWave = waves[currentWaveNum].GetComponent<Wave>();
     }
 
