@@ -48,4 +48,9 @@ public class Player : LivingEntity
             }
         } 
     }
+
+    public virtual void OnCollisionEnter(Collision collision)
+    {
+        
+    }
 }
