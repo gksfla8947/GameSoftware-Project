@@ -16,6 +16,9 @@ public class Player : LivingEntity
     public override void Awake()
     {
         base.Awake();
+        mainCamera = GameObject.Find("MainCameraPos").GetComponentInChildren<Camera>();
+        mousePointer = GameObject.Find("Pointer");
+        transform.SetParent(GameObject.Find("Player").transform);
     }
 
     public override void OnDamage(float damage, Vector3 hitPoint, Vector3 hitNormal)

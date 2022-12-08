@@ -51,7 +51,7 @@ public class Monster : LivingEntity
     // Start is called before the first frame update
     private void Start()
     {
-        Player = GameObject.FindGameObjectWithTag("Player");
+        Player = GameObject.Find("Player").transform.GetChild(0).gameObject;
         Hair = GameObject.FindGameObjectWithTag("Hair");
         StartCoroutine(UpdatePath());
         HP_Slider = GetComponentInChildren<Slider>(); //¹Î

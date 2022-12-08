@@ -11,9 +11,12 @@ public class GameManager : MonoBehaviour
 
     [HideInInspector] 
     public Wave currentWave;
+
+    public Player[] playerTypes;
     //[HideInInspector]
     public Player player;
-    public string playerType;
+    public GameObject playerPrefab;
+    private int playerCode;
 
     private int currentWaveNum = 0;
     public int CurrentWaveNum
@@ -68,6 +71,10 @@ public class GameManager : MonoBehaviour
             if (instance != this) 
                 Destroy(this.gameObject); 
         }
+
+        playerCode = 2;
+        player = playerTypes[playerCode].GetComponent<Player>();
+        playerPrefab = Instantiate(player.gameObject);
     }
     // Start is called before the first frame update
     void Start()
@@ -76,7 +83,6 @@ public class GameManager : MonoBehaviour
         isWaveStart = false;
         killCount = 0;
         activeItemSlot = 2;
-        player = GameObject.Find(playerType).GetComponent<Player>();
         currentWave = waves[currentWaveNum].GetComponent<Wave>();
         UIManager.instance.setScoreUI();
         UIManager.instance.setWaveUI();
