@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5107445325109695326}
   - component: {fileID: 135199661425472619}
   - component: {fileID: 5352377873110637764}
-  - component: {fileID: 241414030429246763}
+  - component: {fileID: 7890003700454282811}
   m_Layer: 9
   m_Name: BeeMonsterBullet
   m_TagString: Untagged
@@ -115,7 +115,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &241414030429246763
+--- !u!114 &7890003700454282811
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -124,6 +124,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4012737903192097206}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59e01005a38992d48b952e757f393c6c, type: 3}
+  m_Script: {fileID: 11500000, guid: b7a92b85c46e47c45bd3cca090b494fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 20
