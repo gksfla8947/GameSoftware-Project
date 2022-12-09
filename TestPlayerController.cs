@@ -13,6 +13,7 @@ public class TestPlayerController : MonoBehaviour
 
     Vector3 movePoint;
     Ray ray;
+    GameObject sword;
 
 
     // Start is called before the first frame update
@@ -20,7 +21,12 @@ public class TestPlayerController : MonoBehaviour
     {
         mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
         pointer = GameObject.Find("Pointer");
-        GameObject.Find("SM_Wep_Sword_01").SetActive(false);
+        sword = GameObject.Find("SM_Wep_Sword_01");
+        sword.SetActive(false);
+    }
+    public void EndAttack()
+    {
+        sword.SetActive(false);
     }
 
     // Update is called once per frame
@@ -44,6 +50,7 @@ public class TestPlayerController : MonoBehaviour
             Quaternion a = Quaternion.identity;
             a.SetLookRotation(movePoint-transform.position);
             transform.rotation = a;
+            sword.SetActive(true);
             testAnimator.SetBool("isStrike", true);
 
         }
@@ -64,7 +71,7 @@ public class TestPlayerController : MonoBehaviour
                 testAnimator.SetBool("isRun", true);
                 transform.position += moveVec * moveSpeed * Time.deltaTime;
                 Debug.Log(moveVec);
-                if (!testAnimator.GetBool("isMagic"))
+                if (!testAnimator.GetBool("isMagic") && !testAnimator.GetBool("isStrike"))
                 {
                     Quaternion a = Quaternion.identity;
                     a.SetLookRotation(moveVec);
