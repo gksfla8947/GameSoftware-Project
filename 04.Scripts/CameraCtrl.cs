@@ -10,6 +10,10 @@ public class CameraCtrl : MonoBehaviour
     public float CameraSpeed = 10.0f;
     Vector3 PlayerPos;
     public float offsetZ;
+    private void Awake()
+    {
+        Player = GameManager.instance.playerPrefab;
+    }
     private void Start()
     {
         offsetZ = Player.transform.position.z;

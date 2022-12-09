@@ -8,7 +8,7 @@ public class Structure : LivingEntity
     public override void Awake()
     {
         base.Awake();
-        HP_slider = transform.GetChild(0).GetComponentInChildren<Slider>();//¹Î
+        HP_slider = GameObject.Find("ProtectedObject").transform.GetChild(0).GetChild(0).GetComponent<Slider>();
     }
     // Start is called before the first frame update
     void Start()

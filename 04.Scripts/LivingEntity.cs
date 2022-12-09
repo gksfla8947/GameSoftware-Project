@@ -16,7 +16,6 @@ public class LivingEntity : MonoBehaviour
     public GameObject hitEffect;
     public GameObject dyingEffect;
 
-    private AudioSource DmgSource;
     protected Slider HP_slider;//민 체력바 이미지(슬라이더)
 
     public virtual void Awake()

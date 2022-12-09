@@ -129,7 +129,8 @@ public class GunPlayer : Player
     void BulletFire()
     {
         Instantiate(FireEffect, FirePos.transform.position, FirePos.transform.rotation);
-        Instantiate(BulletFactory, FirePos.transform.position, FirePos.transform.rotation);
+        GameObject bullet = Instantiate(BulletFactory, FirePos.transform.position, FirePos.transform.rotation);
+        bullet.transform.SetParent(GameObject.Find("Object Pool").transform.GetChild(1));
         /*
         GameObject bullet = ObjectPool.GetObject();
         var direction = movePoint - FirePos.position;
@@ -137,5 +138,10 @@ public class GunPlayer : Player
         bullet.transform.position = direction.normalized;
         bullet.GetComponent<PlayerBullet>().Shoot(direction.normalized);
         */
+    }
+
+    public override void OnDamage(float damage, Vector3 hitPoint, Vector3 hitNormal)
+    {
+        base.OnDamage(damage, hitPoint, hitNormal);
     }
 }

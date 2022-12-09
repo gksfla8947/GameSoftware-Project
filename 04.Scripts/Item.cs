@@ -66,7 +66,7 @@ public class Item : MonoBehaviour
     public void ElimateAllEnemy()
     {
         Monster[] monsters = GameObject.Find("Object Pool").transform.GetChild(0).GetComponentsInChildren<Monster>();
-        foreach(Monster monster in monsters) { Destroy(monster.gameObject); }
+        foreach(Monster monster in monsters) { monster.Die(); }
     }
 
     public void SuperAttackRateUp(float amount)

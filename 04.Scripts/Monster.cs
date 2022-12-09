@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
@@ -51,7 +52,7 @@ public class Monster : LivingEntity
     // Start is called before the first frame update
     private void Start()
     {
-        Player = GameObject.FindGameObjectWithTag("Player");
+        Player = GameObject.Find("Player").transform.GetChild(0).gameObject;
         Hair = GameObject.FindGameObjectWithTag("Hair");
         StartCoroutine(UpdatePath());
         HP_Slider = GetComponentInChildren<Slider>(); //민
@@ -88,8 +89,11 @@ public class Monster : LivingEntity
             }
             else //아니면 타겟을 향해 이동
             {
-                navMeshAgent.isStopped = false;
-                navMeshAgent.SetDestination(targetEntity.transform.position);
+                if (gameObject.activeSelf)
+                {
+                    navMeshAgent.isStopped = false;
+                    navMeshAgent.SetDestination(targetEntity.transform.position);
+                }         
             }
 
             yield return new WaitForSeconds(0.5f);
@@ -116,9 +120,12 @@ public class Monster : LivingEntity
         {
             GameManager.instance.KillCount += 1;
         }
-        //추적 중지, 내비메시 비활성화
-        navMeshAgent.isStopped = true;
-        navMeshAgent.enabled = false;
+        if(gameObject.IsDestroyed())
+        {
+            navMeshAgent.isStopped = true;
+            navMeshAgent.enabled = false;
+        }
+        //추적 중지, 내비메시 비활성화   
 
         base.Die();
 
@@ -162,6 +169,5 @@ public class Monster : LivingEntity
     public override void OnDestroy()
     {
         base.OnDestroy();
-
     }
 }

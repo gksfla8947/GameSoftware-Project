@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,8 +12,15 @@ public class GameManager : MonoBehaviour
 
     [HideInInspector] 
     public Wave currentWave;
+
+    public Player[] playerTypes;
     //[HideInInspector]
     public Player player;
+    public GameObject playerPrefab;
+
+    public GameObject ProtectedObject;
+
+    private int playerCode;
 
     private int currentWaveNum = 0;
     public int CurrentWaveNum
@@ -67,6 +75,10 @@ public class GameManager : MonoBehaviour
             if (instance != this) 
                 Destroy(this.gameObject); 
         }
+        //playerCode = 0;
+        playerCode = SelectCharacter.Instance.characterNum;
+        playerPrefab = Instantiate(playerTypes[playerCode].GetComponent<Player>().gameObject);
+        player = playerPrefab.GetComponent<Player>();
     }
     // Start is called before the first frame update
     void Start()
@@ -75,22 +87,26 @@ public class GameManager : MonoBehaviour
         isWaveStart = false;
         killCount = 0;
         activeItemSlot = 2;
-        player = GameObject.Find("Player").GetComponent<Player>();
         currentWave = waves[currentWaveNum].GetComponent<Wave>();
-    }
-
-    void Update()
-    {
-        numOfMonster = GameObject.Find("Object Pool").transform.GetChild(0).childCount;
-        // UI
         UIManager.instance.setScoreUI();
         UIManager.instance.setWaveUI();
         UIManager.instance.setitemUI();
         UIManager.instance.setState();
+    }
 
-        // Wave
+    void Update()
+    {
+        
         if (isGameStart)
         {
+            UIManager.instance.setScoreUI();
+            UIManager.instance.setWaveUI();
+            UIManager.instance.setitemUI();
+            UIManager.instance.setState();
+
+            numOfMonster = GameObject.Find("Object Pool").transform.GetChild(0).childCount;
+
+
             if (currentWaveNum < waves.Length)
             {
                 currentWave = waves[currentWaveNum].GetComponent<Wave>();
@@ -99,10 +115,22 @@ public class GameManager : MonoBehaviour
                     StartCurrentWave();
                 }
             }
+            else if(currentWaveNum == waves.Length)
+            {
+                isGameStart = false;
+                SceneManager.LoadScene("EndScene");
+            }
+            
+            if(ProtectedObject.IsDestroyed() || player.IsDestroyed())
+            {
+                isGameStart = false;
+                SceneManager.LoadScene("GameOverScene");
+            }
         }
+        ItemManager.instance.GetPreWave();
+
 
         // Item
-        ItemManager.instance.GetPreWave();
     }
 
     public void StartCurrentWave()
