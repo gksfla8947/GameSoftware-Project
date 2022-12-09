@@ -139,8 +139,8 @@ public class GunPlayer : Player
         */
     }
 
-    public override void OnCollisionEnter(Collision collision)
+    public override void OnDamage(float damage, Vector3 hitPoint, Vector3 hitNormal)
     {
-        base.OnCollisionEnter(collision);
+        base.OnDamage(damage, hitPoint, hitNormal);
     }
 }

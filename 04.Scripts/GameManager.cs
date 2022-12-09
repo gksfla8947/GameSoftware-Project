@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -16,6 +17,9 @@ public class GameManager : MonoBehaviour
     //[HideInInspector]
     public Player player;
     public GameObject playerPrefab;
+
+    public GameObject ProtectedObject;
+
     private int playerCode;
 
     private int currentWaveNum = 0;
@@ -72,9 +76,9 @@ public class GameManager : MonoBehaviour
                 Destroy(this.gameObject); 
         }
 
-        playerCode = 2;
-        player = playerTypes[playerCode].GetComponent<Player>();
-        playerPrefab = Instantiate(player.gameObject);
+        playerCode = SelectCharacter.Instance.characterNum;
+        playerPrefab = Instantiate(playerTypes[playerCode].GetComponent<Player>().gameObject);
+        player = playerPrefab.GetComponent<Player>();
     }
     // Start is called before the first frame update
     void Start()
@@ -115,6 +119,12 @@ public class GameManager : MonoBehaviour
             {
                 isGameStart = false;
                 SceneManager.LoadScene("EndScene");
+            }
+            
+            if(ProtectedObject.IsDestroyed() || player.IsDestroyed())
+            {
+                isGameStart = false;
+                SceneManager.LoadScene("GameOverScene");
             }
         }
         ItemManager.instance.GetPreWave();
