@@ -38,6 +38,7 @@ public class GunPlayer : Player
 
         Vector3 moveVec = new Vector3(hAxis, 0, vAxis).normalized;
 
+        Debug.Log(moveVec);
         Vector3 dir = moveVec;
         Move(moveVec);
         Attack(KeyCode.Mouse1);

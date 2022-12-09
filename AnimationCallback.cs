@@ -1,4 +1,4 @@
-using System.Collections;
+    using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -26,7 +26,7 @@ public class AnimationCallback : StateMachineBehaviour
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         animator.SetBool("isStrike", false);
-        sword.SetActive(false);
+        //sword.SetActive(false);
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()
