@@ -22,7 +22,7 @@ public class BattleWave : Wave
     // Update is called once per frame
     void Update()
     {
-        if (GameManager.instance.KillCount == winToKillNum)
+        if (GameManager.instance.KillCount >= winToKillNum)
         {
             EndWave();
         }

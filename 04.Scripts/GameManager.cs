@@ -75,7 +75,7 @@ public class GameManager : MonoBehaviour
             if (instance != this) 
                 Destroy(this.gameObject); 
         }
-
+        //playerCode = 0;
         playerCode = SelectCharacter.Instance.characterNum;
         playerPrefab = Instantiate(playerTypes[playerCode].GetComponent<Player>().gameObject);
         player = playerPrefab.GetComponent<Player>();

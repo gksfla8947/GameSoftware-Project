@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
@@ -119,9 +120,12 @@ public class Monster : LivingEntity
         {
             GameManager.instance.KillCount += 1;
         }
-        //추적 중지, 내비메시 비활성화
-        navMeshAgent.isStopped = true;
-        navMeshAgent.enabled = false;
+        if(gameObject.IsDestroyed())
+        {
+            navMeshAgent.isStopped = true;
+            navMeshAgent.enabled = false;
+        }
+        //추적 중지, 내비메시 비활성화   
 
         base.Die();
 
