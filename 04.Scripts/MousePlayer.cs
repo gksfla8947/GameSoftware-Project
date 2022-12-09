@@ -19,6 +19,7 @@ public class MousePlayer : Player
         sword = GameObject.Find("SM_Wep_Sword_01");
         sword.SetActive(false);
         mainCamera = Camera.main;
+        mouseAnimator = this.GetComponent<Animator>();
     }
 
     public override void Update()

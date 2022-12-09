@@ -16,6 +16,8 @@ public class MutantPlayer : Player
     public override void Awake()
     {
         base.Awake();
+        mainCamera = Camera.main;
+        mutantAnimator = this.GetComponent<Animator>();
     }
     public override void Update()
     {

@@ -680,7 +680,10 @@ MonoBehaviour:
   - {fileID: 2044867052}
   - {fileID: 1787559726}
   currentWave: {fileID: 0}
+  playerTypes: []
   player: {fileID: 0}
+  playerPrefab: {fileID: 0}
+  ProtectedObject: {fileID: 0}
 --- !u!4 &161153409
 Transform:
   m_ObjectHideFlags: 0
@@ -4515,6 +4518,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1460575418326731364, guid: 102ef415407b04d1cb6bbcc7a921ecba, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1460575418326731364, guid: 102ef415407b04d1cb6bbcc7a921ecba, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3207467311237140033, guid: 102ef415407b04d1cb6bbcc7a921ecba, type: 3}
       propertyPath: moveSpeed
       value: 5
@@ -4571,6 +4582,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7502585379620081139, guid: 102ef415407b04d1cb6bbcc7a921ecba, type: 3}
+      propertyPath: mouseAnimator
+      value: 
+      objectReference: {fileID: 1599466809}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 102ef415407b04d1cb6bbcc7a921ecba, type: 3}
 --- !u!1 &1350176492
@@ -5804,6 +5819,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1573426488}
   m_CullTransparentMesh: 1
+--- !u!95 &1599466809 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 6476648278998543654, guid: 102ef415407b04d1cb6bbcc7a921ecba, type: 3}
+  m_PrefabInstance: {fileID: 1290919361}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1626412341
 GameObject:
   m_ObjectHideFlags: 0
